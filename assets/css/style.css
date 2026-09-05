@@ -1,0 +1,181 @@
+/* ============================================================
+   GMT HOTEL AND EVENTS CENTRE — Design System
+   Brand palette: dark brown / cream / white
+   ============================================================ */
+
+:root {
+  --brand-espresso: #2B1B12;   /* deepest brown — backgrounds, headers */
+  --brand-coffee:   #4A2E1F;   /* primary brown — surfaces, sidebar */
+  --brand-cognac:   #7A4A2B;   /* accent brown — buttons, highlights */
+  --brand-gold:     #C89B5A;   /* metallic accent — active states, icons */
+  --brand-cream:    #F5EFE4;   /* primary light surface */
+  --brand-cream-2:  #EFE6D6;   /* secondary light surface */
+  --brand-white:    #FFFFFF;
+  --brand-ink:      #241812;   /* body text on light surfaces */
+  --brand-muted:    #8A7A6C;   /* secondary text */
+  --brand-success:  #4E7A51;
+  --brand-warning:  #B4813C;
+  --brand-danger:   #A33B2E;
+
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-soft: 0 8px 30px rgba(43, 27, 18, 0.12);
+  --shadow-deep: 0 20px 60px rgba(43, 27, 18, 0.25);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--brand-ink);
+  background: var(--brand-cream);
+}
+
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* ---------- Glass surfaces (used sparingly — hero panels, login card, modals) ---------- */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: var(--shadow-deep);
+}
+
+.glass-panel-dark {
+  background: rgba(43, 27, 18, 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(245, 239, 228, 0.14);
+  box-shadow: var(--shadow-deep);
+}
+
+/* ---------- Rotating hero (login screen) ---------- */
+.hero-rotator {
+  position: relative;
+  overflow: hidden;
+  background: var(--brand-espresso);
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.08);
+  animation: none;
+  transition: opacity 2.4s ease-in-out;
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+  animation: heroKenBurns 14s ease-in-out forwards;
+}
+
+@keyframes heroKenBurns {
+  0%   { transform: scale(1.08) translate(0, 0); }
+  100% { transform: scale(1.16) translate(-1.5%, -1%); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(43,27,18,0.55) 0%, rgba(43,27,18,0.35) 45%, rgba(43,27,18,0.75) 100%);
+}
+
+/* ---------- Buttons ---------- */
+.btn-brand {
+  background: linear-gradient(135deg, var(--brand-cognac), var(--brand-coffee));
+  color: var(--brand-cream);
+  border-radius: var(--radius-md);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.btn-brand:hover { filter: brightness(1.08); box-shadow: var(--shadow-soft); }
+.btn-brand:active { transform: scale(0.98); }
+
+.btn-gold {
+  background: var(--brand-gold);
+  color: var(--brand-espresso);
+  border-radius: var(--radius-md);
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  background: var(--brand-espresso);
+  color: var(--brand-cream);
+  transition: width .25s ease;
+}
+.sidebar-link {
+  color: rgba(245,239,228,0.72);
+  border-radius: var(--radius-md);
+  transition: background .15s ease, color .15s ease;
+}
+.sidebar-link:hover, .sidebar-link.is-active {
+  background: rgba(200,155,90,0.14);
+  color: var(--brand-gold);
+}
+.sidebar-link.is-active {
+  box-shadow: inset 3px 0 0 var(--brand-gold);
+}
+
+/* ---------- Cards ---------- */
+.card-surface {
+  background: var(--brand-white);
+  border: 1px solid rgba(43,27,18,0.06);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.kpi-card {
+  background: var(--brand-white);
+  border: 1px solid rgba(43,27,18,0.06);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-deep); }
+
+/* ---------- Status badges ---------- */
+.badge { border-radius: 999px; font-size: 12px; font-weight: 600; padding: 3px 10px; }
+.badge-available     { background:#E7F1E8; color:#3C6A3F; }
+.badge-reserved       { background:#FBF1DE; color:#96702C; }
+.badge-occupied       { background:#F3E4DE; color:#9C4A34; }
+.badge-cleaning       { background:#E5EFF5; color:#356487; }
+.badge-maintenance    { background:#EFE6D6; color:#7A4A2B; }
+.badge-out_of_service { background:#F0E1E1; color:#8A2E2E; }
+
+/* ---------- Fade / slide entrance (used with small vanilla-JS toggles) ---------- */
+.entrance {
+  animation: fadeSlideUp .45s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Skeleton loaders ---------- */
+.skeleton {
+  background: linear-gradient(90deg, #EFE6D6 25%, #F5EFE4 37%, #EFE6D6 63%);
+  background-size: 400% 100%;
+  animation: skeletonWave 1.4s ease infinite;
+  border-radius: var(--radius-md);
+}
+@keyframes skeletonWave {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+/* ---------- Toasts ---------- */
+.toast {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-deep);
+  animation: toastIn .3s ease both;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-8px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Scrollable table wrapper for small screens */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
