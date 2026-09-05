@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # GMT Hotel and Events Centre — Hotel Management System
 
 A PHP/MySQL hotel management application, styled to the GMT dark-brown /
@@ -352,3 +353,7 @@ genuinely left before this is production-ready:
 - **Cloudinary image upload** in the room/listing flows — currently only
   the Settings logo has file upload; room and menu item images are
   path-only fields.
+=======
+# Hotel-management-system
+A complete management system for managing guests, rooms, bookings, payments, staff and reports
+>>>>>>> 8b150308e37b9675d59c5f0be1411dc642048962
