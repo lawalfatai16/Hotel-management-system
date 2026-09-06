@@ -1,7 +1,5 @@
--- ============================================================
--- GMT HOTEL AND EVENTS CENTRE: Hotel Management System
+--GMT HOTEL AND EVENTS CENTRE: Hotel Management System
 -- Database Schema (MySQL 8+)
--- ============================================================
 
 SET FOREIGN_KEY_CHECKS = 0;
 CREATE DATABASE IF NOT EXISTS gmt_hotel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -10,15 +8,15 @@ USE gmt_hotel;
 -- ACCESS CONTROL
 CREATE TABLE roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE,          -- Super Admin, Manager, Receptionist, Accountant, Housekeeping, Event Manager, Restaurant Staff
+    name VARCHAR(50) NOT NULL UNIQUE,          
     description VARCHAR(255) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
 CREATE TABLE permissions (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    module VARCHAR(50) NOT NULL,               -- e.g. rooms, reservations, reports
-    action VARCHAR(50) NOT NULL,                -- view, create, edit, delete, export
+    module VARCHAR(50) NOT NULL,               
+    action VARCHAR(50) NOT NULL,                
     UNIQUE KEY uniq_module_action (module, action)
 ) ENGINE=InnoDB;
 
@@ -32,7 +30,7 @@ CREATE TABLE role_permissions (
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    staff_id INT NULL,                          -- linked staff record, if any
+    staff_id INT NULL,                          
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
@@ -68,11 +66,11 @@ CREATE TABLE staff (
 -- ROOMS
 CREATE TABLE room_types (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,                  -- Standard, Deluxe, Executive Suite...
+    name VARCHAR(50) NOT NULL,                  
     description TEXT NULL,
     base_price DECIMAL(12,2) NOT NULL,
     capacity INT NOT NULL DEFAULT 2,
-    amenities TEXT NULL,                        -- JSON-encoded list
+    amenities TEXT NULL,                        
     image_path VARCHAR(255) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL
@@ -83,7 +81,7 @@ CREATE TABLE rooms (
     room_number VARCHAR(20) NOT NULL UNIQUE,
     room_type_id INT NOT NULL,
     floor INT NOT NULL,
-    price_per_night DECIMAL(12,2) NOT NULL,     -- can override room_type base price
+    price_per_night DECIMAL(12,2) NOT NULL,     
     capacity INT NOT NULL DEFAULT 2,
     description TEXT NULL,
     amenities TEXT NULL,
@@ -106,7 +104,7 @@ CREATE TABLE guests (
     email VARCHAR(100) NULL,
     address VARCHAR(255) NULL,
     country VARCHAR(60) NULL,
-    id_type VARCHAR(40) NULL,                    -- Passport, Driver's Licence, National ID
+    id_type VARCHAR(40) NULL,                   
     id_number VARCHAR(60) NULL,
     date_of_birth DATE NULL,
     emergency_contact_name VARCHAR(100) NULL,
@@ -122,7 +120,7 @@ CREATE TABLE guests (
 -- RESERVATIONS / CHECK-IN / CHECK-OUT
 CREATE TABLE reservations (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    reservation_code VARCHAR(30) NOT NULL UNIQUE,   -- GMT-000452
+    reservation_code VARCHAR(30) NOT NULL UNIQUE,   
     guest_id INT NOT NULL,
     room_id INT NOT NULL,
     check_in_date DATE NOT NULL,
@@ -300,7 +298,7 @@ CREATE TABLE orders (
     order_code VARCHAR(30) NOT NULL UNIQUE,
     table_id INT NULL,
     guest_id INT NULL,
-    reservation_id INT NULL,               -- if charged to room
+    reservation_id INT NULL,               
     order_type ENUM('dine_in','room_charge','takeaway') DEFAULT 'dine_in',
     status ENUM('open','served','paid','cancelled') DEFAULT 'open',
     subtotal DECIMAL(12,2) NOT NULL DEFAULT 0,
@@ -343,7 +341,7 @@ CREATE TABLE expenses (
 -- NOTIFICATIONS / AUDIT / SETTINGS
 CREATE TABLE notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NULL,                       -- NULL = broadcast to all
+    user_id INT NULL,                       
     type VARCHAR(50) NOT NULL,
     title VARCHAR(150) NOT NULL,
     message VARCHAR(255) NOT NULL,
@@ -355,7 +353,7 @@ CREATE TABLE notifications (
 CREATE TABLE audit_logs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NULL,
-    action VARCHAR(255) NOT NULL,           -- "updated Room 204"
+    action VARCHAR(255) NOT NULL,           
     module VARCHAR(50) NOT NULL,
     old_value TEXT NULL,
     new_value TEXT NULL,
