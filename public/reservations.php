@@ -15,7 +15,7 @@ $currencySymbol = setting('currency_symbol', '₦');
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -46,9 +46,9 @@ $currencySymbol = setting('currency_symbol', '₦');
           <div class="text-sm text-[--brand-muted]">Bookings across all rooms, with automatic totals and overlap protection</div>
         </div>
         <div class="flex items-center gap-2">
-          <div class="flex rounded-lg border border-[--brand-ink]/10 overflow-hidden">
-            <button id="tabTable" onclick="switchView('table')" class="px-4 py-2 text-sm font-medium bg-[--brand-coffee] text-[--brand-cream]">Table</button>
-            <button id="tabCalendar" onclick="switchView('calendar')" class="px-4 py-2 text-sm font-medium">Calendar</button>
+          <div class="neu-toggle-group">
+            <button id="tabTable" onclick="switchView('table')" class="neu-toggle-btn is-active">Table</button>
+            <button id="tabCalendar" onclick="switchView('calendar')" class="neu-toggle-btn">Calendar</button>
           </div>
           <button onclick="openReservationModal()" class="btn-brand px-5 py-2.5 text-sm font-semibold flex items-center gap-2">
             <i data-lucide="plus" class="w-4 h-4"></i> New Reservation
@@ -64,13 +64,13 @@ $currencySymbol = setting('currency_symbol', '₦');
             <input id="searchInput" type="text" placeholder="Search code, guest, or room…"
               class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[--brand-ink]/10 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           </div>
-          <select id="statusFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+          <select id="statusFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">All statuses</option>
             <?php foreach (['pending'=>'Pending','confirmed'=>'Confirmed','checked_in'=>'Checked In','checked_out'=>'Checked Out','cancelled'=>'Cancelled'] as $k=>$v): ?>
               <option value="<?= $k ?>"><?= $v ?></option>
             <?php endforeach; ?>
           </select>
-          <select id="paymentFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+          <select id="paymentFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">All payment statuses</option>
             <option value="unpaid">Unpaid</option>
             <option value="partial">Partial</option>
@@ -139,14 +139,14 @@ $currencySymbol = setting('currency_symbol', '₦');
         <div class="relative">
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Guest</label>
           <input id="guestSearch" autocomplete="off" required placeholder="Search guest by name or phone…"
-            class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+            class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <input type="hidden" id="guest_id" name="guest_id">
           <div id="guestResults" class="hidden absolute z-10 w-full bg-white rounded-lg shadow-lg border border-[--brand-ink]/10 mt-1 max-h-40 overflow-y-auto"></div>
         </div>
         <div class="relative">
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Room</label>
           <input id="roomSearch" autocomplete="off" required placeholder="Search room number…"
-            class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+            class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <input type="hidden" id="room_id" name="room_id">
           <div id="roomResults" class="hidden absolute z-10 w-full bg-white rounded-lg shadow-lg border border-[--brand-ink]/10 mt-1 max-h-40 overflow-y-auto"></div>
         </div>
@@ -155,30 +155,30 @@ $currencySymbol = setting('currency_symbol', '₦');
       <div class="grid grid-cols-3 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Check-in</label>
-          <input type="date" name="check_in_date" id="check_in_date" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="date" name="check_in_date" id="check_in_date" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Check-out</label>
-          <input type="date" name="check_out_date" id="check_out_date" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="date" name="check_out_date" id="check_out_date" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5"># Guests</label>
-          <input type="number" name="number_of_guests" id="number_of_guests" min="1" value="1" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" name="number_of_guests" id="number_of_guests" min="1" value="1" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
 
       <div class="grid grid-cols-3 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Discount (<?= e($currencySymbol) ?>)</label>
-          <input type="number" name="discount" id="discount" min="0" step="0.01" value="0" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" name="discount" id="discount" min="0" step="0.01" value="0" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Tax (<?= e($currencySymbol) ?>)</label>
-          <input type="number" name="tax" id="tax" min="0" step="0.01" value="0" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" name="tax" id="tax" min="0" step="0.01" value="0" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Payment Status</label>
-          <select name="payment_status" id="payment_status" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="payment_status" id="payment_status" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="unpaid">Unpaid</option>
             <option value="partial">Partial</option>
             <option value="paid">Paid</option>
@@ -188,7 +188,7 @@ $currencySymbol = setting('currency_symbol', '₦');
 
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Special Requests</label>
-        <textarea name="special_requests" id="special_requests" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm"></textarea>
+        <textarea name="special_requests" id="special_requests" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"></textarea>
       </div>
 
       <div class="card-surface p-4 flex items-center justify-between bg-[--brand-cream-2]">
@@ -226,16 +226,16 @@ let currentPage = 1;
 let selectedRoomRate = 0;
 let calendarMonth = new Date();
 
-// ---------- View switching ----------
+// View switching
 function switchView(view) {
   document.getElementById('viewTable').classList.toggle('hidden', view !== 'table');
   document.getElementById('viewCalendar').classList.toggle('hidden', view !== 'calendar');
-  document.getElementById('tabTable').className = `px-4 py-2 text-sm font-medium ${view==='table' ? 'bg-[--brand-coffee] text-[--brand-cream]' : ''}`;
-  document.getElementById('tabCalendar').className = `px-4 py-2 text-sm font-medium ${view==='calendar' ? 'bg-[--brand-coffee] text-[--brand-cream]' : ''}`;
+  document.getElementById('tabTable').classList.toggle('is-active', view === 'table');
+  document.getElementById('tabCalendar').classList.toggle('is-active', view === 'calendar');
   if (view === 'calendar') loadCalendar();
 }
 
-// ---------- Table view ----------
+// Table view
 function statusBadge(status) {
   const map = { pending:'reserved', confirmed:'available', checked_in:'occupied', checked_out:'cleaning', cancelled:'out_of_service' };
   const labels = { pending:'Pending', confirmed:'Confirmed', checked_in:'Checked In', checked_out:'Checked Out', cancelled:'Cancelled' };
@@ -320,7 +320,7 @@ function exportCsv() {
   window.location.href = `api/reservations_export.php?${params.toString()}`;
 }
 
-// ---------- Guest / Room typeahead ----------
+// Guest / Room typeahead
 document.getElementById('guestSearch').addEventListener('input', GMT.debounce(async (e) => {
   const q = e.target.value.trim();
   const box = document.getElementById('guestResults');
@@ -342,7 +342,7 @@ document.getElementById('roomSearch').addEventListener('input', GMT.debounce(asy
   const box = document.getElementById('roomResults');
   const res = await GMT.api(`api/rooms.php?search=${encodeURIComponent(q)}`);
   if (!res.success || !res.data.length) { box.innerHTML = `<div class="px-3 py-2 text-sm text-[--brand-muted]">No rooms found</div>`; box.classList.remove('hidden'); return; }
-  box.innerHTML = res.data.map(r => `<div class="px-3 py-2 text-sm hover:bg-black/5 cursor-pointer" onclick='selectRoom(${r.id}, "${r.room_number}", ${r.price_per_night})'>Room ${r.room_number} — ${r.price_display}/night</div>`).join('');
+  box.innerHTML = res.data.map(r => `<div class="px-3 py-2 text-sm hover:bg-black/5 cursor-pointer" onclick='selectRoom(${r.id}, "${r.room_number}", ${r.price_per_night})'>Room ${r.room_number}: ${r.price_display}/night</div>`).join('');
   box.classList.remove('hidden');
 }, 300));
 
@@ -359,7 +359,7 @@ document.addEventListener('click', (e) => {
   if (!e.target.closest('#roomSearch') && !e.target.closest('#roomResults')) document.getElementById('roomResults').classList.add('hidden');
 });
 
-// ---------- Live total calculation ----------
+// Live total calculation
 function recalcTotal() {
   const checkIn = document.getElementById('check_in_date').value;
   const checkOut = document.getElementById('check_out_date').value;
@@ -376,7 +376,7 @@ function recalcTotal() {
 }
 ['check_in_date','check_out_date','discount','tax'].forEach(id => document.getElementById(id).addEventListener('input', recalcTotal));
 
-// ---------- Modal open/edit ----------
+// Modal open/edit
 function openReservationModal() {
   document.getElementById('reservationForm').reset();
   document.getElementById('reservationId').value = '';
@@ -433,7 +433,7 @@ document.getElementById('reservationForm').addEventListener('submit', async (e) 
   if (res.success) { GMT.closeModal('reservationModal'); loadReservations(currentPage); }
 });
 
-// ---------- Calendar view ----------
+// Calendar view
 function shiftMonth(delta) {
   calendarMonth.setMonth(calendarMonth.getMonth() + delta);
   loadCalendar();
@@ -459,7 +459,7 @@ async function loadCalendar() {
     const dayReservations = res.data.filter(r => dateStr >= r.check_in_date && dateStr < r.check_out_date);
     const pills = dayReservations.slice(0,3).map(r => {
       const color = { pending:'bg-amber-100 text-amber-800', confirmed:'bg-green-100 text-green-800', checked_in:'bg-orange-100 text-orange-800' }[r.status] || 'bg-gray-100';
-      return `<div class="${color} rounded px-1.5 py-0.5 text-[10px] truncate" title="${r.guest_name} — Room ${r.room_number}">${r.room_number}: ${r.guest_name}</div>`;
+      return `<div class="${color} rounded px-1.5 py-0.5 text-[10px] truncate" title="${r.guest_name}: Room ${r.room_number}">${r.room_number}: ${r.guest_name}</div>`;
     }).join('');
     const more = dayReservations.length > 3 ? `<div class="text-[10px] text-[--brand-muted]">+${dayReservations.length - 3} more</div>` : '';
     cells += `
@@ -472,7 +472,7 @@ async function loadCalendar() {
   GMT.motionReady.then((m) => { if (m) m.animate(grid, { opacity: [0, 1] }, { duration: 0.3 }); });
 }
 
-// ---------- Filters ----------
+// Filters
 document.getElementById('searchInput').addEventListener('input', GMT.debounce(() => loadReservations(1), 350));
 ['statusFilter','paymentFilter'].forEach(id => document.getElementById(id).addEventListener('change', () => loadReservations(1)));
 

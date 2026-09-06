@@ -39,7 +39,7 @@ class Auth
             return ['ok' => false, 'error' => 'Invalid username or password.'];
         }
 
-        // Success — reset attempts, rotate session id, set session
+        // Success: reset attempts, rotate session id, set session
         $db->prepare("UPDATE users SET failed_login_attempts = 0, locked_until = NULL, last_login_at = NOW() WHERE id = :id")
            ->execute([':id' => $user['id']]);
 
@@ -164,7 +164,7 @@ class Auth
         ] : null;
     }
 
-    // ---- CSRF -------------------------------------------------------
+    // CSRF
     public static function csrfToken(): string
     {
         if (empty($_SESSION['csrf_token'])) {
@@ -178,7 +178,7 @@ class Auth
         return !empty($token) && !empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
 
-    // ---- Audit --------------------------------------------------------
+    // Audit
     public static function logAudit(?int $userId, string $action, string $module, ?string $old = null, ?string $new = null): void
     {
         try {

@@ -2,7 +2,7 @@
 /**
  * Role-based access matrix.
  *
- * Super Admin has '*' — unrestricted access to every module, always,
+ * Super Admin has '*': unrestricted access to every module, always,
  * regardless of what's added below. Every other role is scoped to what
  * that job actually needs, per Section 17 of the brief ("a receptionist
  * should NOT be able to access sensitive system administration functions").
@@ -11,7 +11,7 @@
  * string passed to Auth::requireModuleAccess() in each page/API file.
  *
  * To grant a role access to a new module later, just add the key to its
- * array here — nothing else needs to change.
+ * array here. Nothing else needs to change.
  */
 return [
     'Super Admin' => ['*'],

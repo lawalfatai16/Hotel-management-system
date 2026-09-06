@@ -14,7 +14,7 @@ $csrfToken = Auth::csrfToken();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -43,7 +43,7 @@ $csrfToken = Auth::csrfToken();
           <input id="searchInput" type="text" placeholder="Search invoice #, guest, or reservation…"
             class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[--brand-ink]/10 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
-        <select id="statusFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <select id="statusFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <option value="">All statuses</option>
           <option value="issued">Issued</option>
           <option value="paid">Paid</option>
@@ -116,7 +116,7 @@ async function loadInvoices(page = 1) {
     <tr class="hover:bg-black/[0.02]">
       <td class="px-5 py-3 font-medium">${inv.invoice_number}</td>
       <td class="px-5 py-3">${inv.guest_name}</td>
-      <td class="px-5 py-3">${inv.reservation_code || '—'}</td>
+      <td class="px-5 py-3">${inv.reservation_code || 'N/A'}</td>
       <td class="px-5 py-3">${inv.total_display}</td>
       <td class="px-5 py-3">${inv.balance_display}</td>
       <td class="px-5 py-3">${statusBadge(inv.status)}</td>

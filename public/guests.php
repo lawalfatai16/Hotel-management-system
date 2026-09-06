@@ -14,7 +14,7 @@ $csrfToken = Auth::csrfToken();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -89,31 +89,31 @@ $csrfToken = Auth::csrfToken();
       <div class="grid grid-cols-2 gap-4">
         <div class="col-span-2">
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Full Name</label>
-          <input name="full_name" id="full_name" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="full_name" id="full_name" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Phone</label>
-          <input name="phone" id="phone" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="phone" id="phone" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Email</label>
-          <input name="email" id="email" type="email" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="email" id="email" type="email" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div class="col-span-2">
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Address</label>
-          <input name="address" id="address" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="address" id="address" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Country</label>
-          <input name="country" id="country" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="country" id="country" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Date of Birth</label>
-          <input name="date_of_birth" id="date_of_birth" type="date" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="date_of_birth" id="date_of_birth" type="date" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">ID Type</label>
-          <select name="id_type" id="id_type" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="id_type" id="id_type" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">None</option>
             <option>Passport</option>
             <option>Driver's Licence</option>
@@ -123,19 +123,19 @@ $csrfToken = Auth::csrfToken();
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">ID Number</label>
-          <input name="id_number" id="id_number" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="id_number" id="id_number" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Emergency Contact Name</label>
-          <input name="emergency_contact_name" id="emergency_contact_name" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="emergency_contact_name" id="emergency_contact_name" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Emergency Contact Phone</label>
-          <input name="emergency_contact_phone" id="emergency_contact_phone" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="emergency_contact_phone" id="emergency_contact_phone" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div class="col-span-2">
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Notes</label>
-          <textarea name="notes" id="notes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm"></textarea>
+          <textarea name="notes" id="notes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"></textarea>
         </div>
       </div>
       <div class="flex justify-end gap-3 pt-2">
@@ -178,7 +178,7 @@ async function loadGuests(page = 1) {
         <a href="guest_profile.php?id=${g.id}" class="font-medium hover:text-[--brand-cognac]">${g.full_name}</a>
       </td>
       <td class="px-5 py-3 text-[--brand-muted]">${g.phone || ''}${g.phone && g.email ? ' · ' : ''}${g.email || ''}</td>
-      <td class="px-5 py-3 text-[--brand-muted]">${g.country || '—'}</td>
+      <td class="px-5 py-3 text-[--brand-muted]">${g.country || 'N/A'}</td>
       <td class="px-5 py-3">${g.stays}</td>
       <td class="px-5 py-3">${'<?= e(setting("currency_symbol","₦")) ?>' + Number(g.total_spent).toLocaleString(undefined,{minimumFractionDigits:2})}</td>
       <td class="px-5 py-3 text-right space-x-2 whitespace-nowrap">

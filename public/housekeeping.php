@@ -17,7 +17,7 @@ $roomsList = $db->query("SELECT id, room_number FROM rooms WHERE deleted_at IS N
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -59,7 +59,7 @@ $roomsList = $db->query("SELECT id, room_number FROM rooms WHERE deleted_at IS N
       <div>
         <div class="flex items-center justify-between mb-4">
           <div class="font-medium">Task Board</div>
-          <select id="priorityFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+          <select id="priorityFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">All priorities</option>
             <option value="urgent">Urgent</option>
             <option value="high">High</option>
@@ -91,26 +91,26 @@ $roomsList = $db->query("SELECT id, room_number FROM rooms WHERE deleted_at IS N
     <form id="taskForm" class="space-y-4">
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Room</label>
-        <select name="room_id" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+        <select name="room_id" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <option value="">Select room</option>
           <?php foreach ($roomsList as $r): ?><option value="<?= (int)$r['id'] ?>">Room <?= e($r['room_number']) ?></option><?php endforeach; ?>
         </select>
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Task</label>
-        <input name="task" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm" placeholder="e.g. Full room cleaning, Linen change">
+        <input name="task" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]" placeholder="e.g. Full room cleaning, Linen change">
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Assign To</label>
-          <select name="assigned_staff_id" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="assigned_staff_id" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">Unassigned</option>
-            <?php foreach ($staffList as $s): ?><option value="<?= (int)$s['id'] ?>"><?= e($s['full_name']) ?> — <?= e($s['department']) ?></option><?php endforeach; ?>
+            <?php foreach ($staffList as $s): ?><option value="<?= (int)$s['id'] ?>"><?= e($s['full_name']) ?>: <?= e($s['department']) ?></option><?php endforeach; ?>
           </select>
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Priority</label>
-          <select name="priority" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="priority" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="low">Low</option>
             <option value="normal" selected>Normal</option>
             <option value="high">High</option>
@@ -212,12 +212,13 @@ async function loadTasks() {
       <div class="text-xs text-[--brand-muted] mb-3">${t.staff_name || 'Unassigned'}</div>
       <div class="flex gap-1.5 flex-wrap">
         ${nextStatusButtons(t)}
-        <button onclick="deleteTask(${t.id})" class="text-xs px-2 py-1 rounded border border-red-200 text-red-600 hover:bg-red-50">✕</button>
+        <button onclick="deleteTask(${t.id})" class="text-xs px-2 py-1 rounded border border-red-200 text-red-600 hover:bg-red-50 inline-flex items-center"><i data-lucide="x" class="w-3 h-3"></i></button>
       </div>
     `;
     col.appendChild(card);
   });
   GMT.entrance('[id^="col-"] > div');
+  lucide.createIcons();
 }
 
 function nextStatusButtons(t) {

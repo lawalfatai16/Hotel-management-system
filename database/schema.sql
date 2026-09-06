@@ -1,5 +1,5 @@
 -- ============================================================
--- GMT HOTEL AND EVENTS CENTRE — Hotel Management System
+-- GMT HOTEL AND EVENTS CENTRE: Hotel Management System
 -- Database Schema (MySQL 8+)
 -- ============================================================
 
@@ -7,10 +7,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 CREATE DATABASE IF NOT EXISTS gmt_hotel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE gmt_hotel;
 
--- ---------------------------------------------------------
 -- ACCESS CONTROL
--- ---------------------------------------------------------
-
 CREATE TABLE roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,          -- Super Admin, Manager, Receptionist, Accountant, Housekeeping, Event Manager, Restaurant Staff
@@ -51,10 +48,7 @@ CREATE TABLE users (
     FOREIGN KEY (role_id) REFERENCES roles(id)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------
 -- STAFF
--- ---------------------------------------------------------
-
 CREATE TABLE staff (
     id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
@@ -71,10 +65,7 @@ CREATE TABLE staff (
     FOREIGN KEY (role_id) REFERENCES roles(id)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------
 -- ROOMS
--- ---------------------------------------------------------
-
 CREATE TABLE room_types (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,                  -- Standard, Deluxe, Executive Suite...
@@ -107,10 +98,7 @@ CREATE TABLE rooms (
     INDEX idx_floor (floor)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------
 -- GUESTS
--- ---------------------------------------------------------
-
 CREATE TABLE guests (
     id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
@@ -131,10 +119,7 @@ CREATE TABLE guests (
     INDEX idx_phone (phone)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------
 -- RESERVATIONS / CHECK-IN / CHECK-OUT
--- ---------------------------------------------------------
-
 CREATE TABLE reservations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     reservation_code VARCHAR(30) NOT NULL UNIQUE,   -- GMT-000452
@@ -186,10 +171,7 @@ CREATE TABLE checkouts (
     FOREIGN KEY (checked_out_by) REFERENCES users(id)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------
 -- HOUSEKEEPING
--- ---------------------------------------------------------
-
 CREATE TABLE housekeeping_tasks (
     id INT AUTO_INCREMENT PRIMARY KEY,
     room_id INT NOT NULL,
@@ -205,10 +187,7 @@ CREATE TABLE housekeeping_tasks (
     FOREIGN KEY (assigned_staff_id) REFERENCES staff(id)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------
 -- PAYMENTS / INVOICES
--- ---------------------------------------------------------
-
 CREATE TABLE payments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     guest_id INT NULL,
@@ -257,10 +236,7 @@ CREATE TABLE invoice_items (
     FOREIGN KEY (invoice_id) REFERENCES invoices(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------
 -- EVENTS
--- ---------------------------------------------------------
-
 CREATE TABLE event_packages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -296,10 +272,7 @@ CREATE TABLE events (
     INDEX idx_event_date (event_date)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------
 -- RESTAURANT / POS
--- ---------------------------------------------------------
-
 CREATE TABLE restaurant_tables (
     id INT AUTO_INCREMENT PRIMARY KEY,
     table_number VARCHAR(20) NOT NULL UNIQUE,
@@ -352,10 +325,7 @@ CREATE TABLE order_items (
     FOREIGN KEY (menu_item_id) REFERENCES menu_items(id)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------
 -- EXPENSES
--- ---------------------------------------------------------
-
 CREATE TABLE expenses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     category ENUM('utilities','maintenance','salaries','supplies','food','events','transportation','other') NOT NULL,
@@ -370,10 +340,7 @@ CREATE TABLE expenses (
     FOREIGN KEY (staff_id) REFERENCES staff(id)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------
 -- NOTIFICATIONS / AUDIT / SETTINGS
--- ---------------------------------------------------------
-
 CREATE TABLE notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NULL,                       -- NULL = broadcast to all
@@ -409,10 +376,7 @@ CREATE TABLE settings (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
--- ---------------------------------------------------------
 -- SEED: roles, default settings, default admin
--- ---------------------------------------------------------
-
 INSERT INTO roles (name, description) VALUES
 ('Super Admin', 'Full system access'),
 ('Manager', 'Operational management access'),
@@ -436,16 +400,13 @@ INSERT INTO settings (setting_key, setting_value) VALUES
 ('time_format', 'H:i'),
 ('whatsapp_country_code', '234');
 
--- Default administrator — username: admin / password: ChangeMe!2026
+-- Default administrator. Username: admin, password: ChangeMe!2026
 -- Hash generated with password_hash('ChangeMe!2026', PASSWORD_DEFAULT)
 INSERT INTO users (username, email, password_hash, role_id, status) VALUES
 ('admin', 'admin@gmthotel.local', '$2y$10$examplehashREPLACEONFIRSTRUN.......................', 1, 'active');
 
--- ---------------------------------------------------------
 -- SEED: realistic sample data (rooms, staff, guests)
--- Believable Nigerian hospitality data — no "John Doe" / "Test User" placeholders
--- ---------------------------------------------------------
-
+-- Believable Nigerian hospitality data. No "John Doe" / "Test User" placeholders
 INSERT INTO room_types (name, description, base_price, capacity, amenities) VALUES
 ('Standard Room', 'Comfortable well-appointed room with garden view', 35000.00, 2, 'Wi-Fi, AC, Flat-screen TV, Mini-fridge'),
 ('Deluxe Room', 'Spacious room with premium furnishing and city view', 55000.00, 2, 'Wi-Fi, AC, Smart TV, Mini-bar, Work desk'),

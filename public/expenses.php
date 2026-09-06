@@ -18,7 +18,7 @@ $categories = ['utilities'=>'Utilities','maintenance'=>'Maintenance','salaries'=
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -44,11 +44,11 @@ $categories = ['utilities'=>'Utilities','maintenance'=>'Maintenance','salaries'=
       </div>
 
       <div class="grid lg:grid-cols-3 gap-6">
-        <div class="card-surface p-6 lg:col-span-1">
+        <div class="neu-panel p-6 lg:col-span-1">
           <div class="font-medium mb-4">This Month by Category</div>
           <canvas id="categoryChart" height="220"></canvas>
         </div>
-        <div class="card-surface p-6 lg:col-span-2 flex flex-col justify-center items-center">
+        <div class="neu-panel p-6 lg:col-span-2 flex flex-col justify-center items-center">
           <div class="text-xs text-[--brand-muted] uppercase tracking-wide mb-2">Total This Month</div>
           <div id="monthTotal" class="font-display text-4xl"><?= e($currencySymbol) ?>0.00</div>
         </div>
@@ -59,12 +59,12 @@ $categories = ['utilities'=>'Utilities','maintenance'=>'Maintenance','salaries'=
           <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[--brand-muted]"></i>
           <input id="searchInput" type="text" placeholder="Search description…" class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[--brand-ink]/10 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
-        <select id="categoryFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <select id="categoryFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <option value="">All categories</option>
           <?php foreach ($categories as $k=>$v): ?><option value="<?= $k ?>"><?= $v ?></option><?php endforeach; ?>
         </select>
-        <input type="date" id="dateFrom" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
-        <input type="date" id="dateTo" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <input type="date" id="dateFrom" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
+        <input type="date" id="dateTo" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
       </div>
 
       <div class="card-surface overflow-hidden">
@@ -97,27 +97,27 @@ $categories = ['utilities'=>'Utilities','maintenance'=>'Maintenance','salaries'=
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Category</label>
-          <select name="category" id="category" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="category" id="category" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <?php foreach ($categories as $k=>$v): ?><option value="<?= $k ?>"><?= $v ?></option><?php endforeach; ?>
           </select>
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Amount (<?= e($currencySymbol) ?>)</label>
-          <input type="number" name="amount" id="amount" min="0.01" step="0.01" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" name="amount" id="amount" min="0.01" step="0.01" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Description</label>
-        <input name="description" id="description" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+        <input name="description" id="description" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Date</label>
-          <input type="date" name="expense_date" id="expense_date" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="date" name="expense_date" id="expense_date" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Payment Method</label>
-          <select name="payment_method" id="payment_method" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="payment_method" id="payment_method" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="cash">Cash</option><option value="bank_transfer">Bank Transfer</option>
             <option value="pos">POS</option><option value="card">Card</option><option value="other">Other</option>
           </select>
@@ -126,19 +126,19 @@ $categories = ['utilities'=>'Utilities','maintenance'=>'Maintenance','salaries'=
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Staff Member</label>
-          <select name="staff_id" id="staff_id" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="staff_id" id="staff_id" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">Unspecified</option>
             <?php foreach ($staffList as $s): ?><option value="<?= (int)$s['id'] ?>"><?= e($s['full_name']) ?></option><?php endforeach; ?>
           </select>
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Receipt / Reference</label>
-          <input name="receipt_reference" id="receipt_reference" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="receipt_reference" id="receipt_reference" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Notes</label>
-        <textarea name="notes" id="notes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm"></textarea>
+        <textarea name="notes" id="notes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"></textarea>
       </div>
       <div class="flex justify-end gap-3 pt-2">
         <button type="button" onclick="GMT.closeModal('expenseModal')" class="px-5 py-2.5 text-sm rounded-lg border border-[--brand-ink]/10">Cancel</button>
@@ -203,7 +203,7 @@ async function loadExpenses(page = 1) {
       <td class="px-5 py-3">${x.description}</td>
       <td class="px-5 py-3 font-medium">${x.amount_display}</td>
       <td class="px-5 py-3">${methodLabel(x.payment_method)}</td>
-      <td class="px-5 py-3 text-[--brand-muted]">${x.staff_name || '—'}</td>
+      <td class="px-5 py-3 text-[--brand-muted]">${x.staff_name || 'N/A'}</td>
       <td class="px-5 py-3 text-right space-x-1 whitespace-nowrap">
         <button onclick='editExpense(${JSON.stringify(x)})' class="text-xs px-2.5 py-1.5 rounded-lg border border-[--brand-ink]/10 hover:bg-black/5">Edit</button>
         <button onclick="deleteExpense(${x.id})" class="text-xs px-2.5 py-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50">Delete</button>

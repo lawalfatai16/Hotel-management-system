@@ -17,7 +17,7 @@ $departments = ['Front Office','Housekeeping','Accounts','Events','Restaurant','
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -46,11 +46,11 @@ $departments = ['Front Office','Housekeeping','Accounts','Events','Restaurant','
           <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[--brand-muted]"></i>
           <input id="searchInput" type="text" placeholder="Search name, phone, or email…" class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[--brand-ink]/10 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
-        <select id="departmentFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <select id="departmentFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <option value="">All departments</option>
           <?php foreach ($departments as $d): ?><option value="<?= e($d) ?>"><?= e($d) ?></option><?php endforeach; ?>
         </select>
-        <select id="statusFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <select id="statusFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <option value="">All statuses</option>
           <option value="active">Active</option>
           <option value="on_leave">On Leave</option>
@@ -87,46 +87,46 @@ $departments = ['Front Office','Housekeeping','Accounts','Events','Restaurant','
       <input type="hidden" id="staffId" name="id">
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Full Name</label>
-        <input name="full_name" id="full_name" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+        <input name="full_name" id="full_name" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Department</label>
-          <select name="department" id="department" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="department" id="department" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <?php foreach ($departments as $d): ?><option value="<?= e($d) ?>"><?= e($d) ?></option><?php endforeach; ?>
           </select>
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Position</label>
-          <input name="position" id="position" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="position" id="position" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Phone</label>
-          <input name="phone" id="phone" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="phone" id="phone" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Email</label>
-          <input name="email" id="email" type="email" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="email" id="email" type="email" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">System Role</label>
-          <select name="role_id" id="role_id" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="role_id" id="role_id" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">None (no login access)</option>
             <?php foreach ($roles as $r): ?><option value="<?= (int)$r['id'] ?>"><?= e($r['name']) ?></option><?php endforeach; ?>
           </select>
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Date Employed</label>
-          <input type="date" name="date_employed" id="date_employed" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="date" name="date_employed" id="date_employed" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Status</label>
-        <select name="status" id="status" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+        <select name="status" id="status" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <option value="active">Active</option>
           <option value="on_leave">On Leave</option>
           <option value="terminated">Terminated</option>
@@ -182,7 +182,7 @@ async function loadStaff(page = 1) {
       <td class="px-5 py-3">${s.department}</td>
       <td class="px-5 py-3">${s.position}</td>
       <td class="px-5 py-3 text-[--brand-muted]">${s.phone || ''}${s.phone && s.email ? ' · ' : ''}${s.email || ''}</td>
-      <td class="px-5 py-3">${s.role_name || '—'}</td>
+      <td class="px-5 py-3">${s.role_name || 'N/A'}</td>
       <td class="px-5 py-3">${statusBadge(s.status)}</td>
       <td class="px-5 py-3 text-right space-x-1 whitespace-nowrap">
         <button onclick='editStaff(${JSON.stringify(s)})' class="text-xs px-2.5 py-1.5 rounded-lg border border-[--brand-ink]/10 hover:bg-black/5">Edit</button>

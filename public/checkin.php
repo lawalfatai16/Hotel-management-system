@@ -15,7 +15,7 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -41,7 +41,7 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
     <main class="p-4 md:p-8 space-y-6">
       <div class="no-print">
         <div class="font-display text-xl">Guest Check-In</div>
-        <div class="text-sm text-[--brand-muted]">Reservations due for arrival — verify the guest, confirm the room, and check them in</div>
+        <div class="text-sm text-[--brand-muted]">Reservations due for arrival: verify the guest, confirm the room, and check them in</div>
       </div>
 
       <div class="card-surface p-4 no-print">
@@ -72,7 +72,7 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
     <div id="checkinDetail" class="space-y-4 text-sm"></div>
     <div class="mt-4">
       <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Notes (optional)</label>
-      <textarea id="checkinNotes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm"></textarea>
+      <textarea id="checkinNotes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"></textarea>
     </div>
     <div class="flex justify-end gap-3 pt-6">
       <button type="button" onclick="GMT.closeModal('checkinModal')" class="px-5 py-2.5 text-sm rounded-lg border border-[--brand-ink]/10">Cancel</button>
@@ -132,12 +132,12 @@ async function openCheckin(id) {
   document.getElementById('checkinDetail').innerHTML = `
     <div class="grid grid-cols-2 gap-4">
       <div><span class="text-[--brand-muted] text-xs">Guest</span><br><span class="font-medium">${r.guest_name}</span></div>
-      <div><span class="text-[--brand-muted] text-xs">Phone</span><br><span class="font-medium">${r.guest_phone || '—'}</span></div>
+      <div><span class="text-[--brand-muted] text-xs">Phone</span><br><span class="font-medium">${r.guest_phone || 'N/A'}</span></div>
       <div><span class="text-[--brand-muted] text-xs">Room</span><br><span class="font-medium">${r.room_number} (${r.room_type_name})</span></div>
       <div><span class="text-[--brand-muted] text-xs">Guests</span><br><span class="font-medium">${r.number_of_guests}</span></div>
       <div><span class="text-[--brand-muted] text-xs">Check-in</span><br><span class="font-medium">${r.check_in_date}</span></div>
       <div><span class="text-[--brand-muted] text-xs">Check-out</span><br><span class="font-medium">${r.check_out_date}</span></div>
-      <div><span class="text-[--brand-muted] text-xs">ID Verification</span><br><span class="font-medium">${r.id_type ? r.id_type + ' — ' + r.id_number : 'Not on file'}</span></div>
+      <div><span class="text-[--brand-muted] text-xs">ID Verification</span><br><span class="font-medium">${r.id_type ? r.id_type + ': ' + r.id_number : 'Not on file'}</span></div>
       <div><span class="text-[--brand-muted] text-xs">Balance Due</span><br><span class="font-medium ${r.balance > 0 ? 'text-[--brand-danger]' : ''}">${formatMoney(r.balance)}</span></div>
     </div>
     ${r.balance > 0 ? `<div class="rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-xs px-3 py-2">This reservation has an outstanding balance. You can still check the guest in and settle payment via the Payments module.</div>` : ''}

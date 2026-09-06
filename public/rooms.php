@@ -17,7 +17,7 @@ $csrfToken = Auth::csrfToken();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -52,15 +52,15 @@ $csrfToken = Auth::csrfToken();
           <input id="searchInput" type="text" placeholder="Search room number or type…"
             class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[--brand-ink]/10 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
-        <select id="floorFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <select id="floorFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <option value="">All floors</option>
           <?php foreach ($floors as $f): ?><option value="<?= e((string)$f) ?>">Floor <?= e((string)$f) ?></option><?php endforeach; ?>
         </select>
-        <select id="typeFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <select id="typeFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <option value="">All room types</option>
           <?php foreach ($roomTypes as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?>
         </select>
-        <select id="statusFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <select id="statusFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <option value="">All statuses</option>
           <?php foreach (['available','reserved','occupied','cleaning','maintenance','out_of_service'] as $s): ?>
             <option value="<?= $s ?>"><?= ucwords(str_replace('_',' ',$s)) ?></option>
@@ -104,34 +104,34 @@ $csrfToken = Auth::csrfToken();
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Room Number</label>
-          <input name="room_number" id="room_number" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="room_number" id="room_number" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Floor</label>
-          <input name="floor" id="floor" type="number" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="floor" id="floor" type="number" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Room Type</label>
-          <select name="room_type_id" id="room_type_id" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="room_type_id" id="room_type_id" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">Select type</option>
             <?php foreach ($roomTypes as $t): ?><option value="<?= (int)$t['id'] ?>"><?= e($t['name']) ?></option><?php endforeach; ?>
           </select>
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Capacity</label>
-          <input name="capacity" id="capacity" type="number" min="1" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="capacity" id="capacity" type="number" min="1" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Price / Night (<?= e(setting('currency_symbol','₦')) ?>)</label>
-          <input name="price_per_night" id="price_per_night" type="number" step="0.01" min="0" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="price_per_night" id="price_per_night" type="number" step="0.01" min="0" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Status</label>
-          <select name="status" id="status" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="status" id="status" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <?php foreach (['available','reserved','occupied','cleaning','maintenance','out_of_service'] as $s): ?>
               <option value="<?= $s ?>"><?= ucwords(str_replace('_',' ',$s)) ?></option>
             <?php endforeach; ?>
@@ -140,11 +140,11 @@ $csrfToken = Auth::csrfToken();
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Description</label>
-        <textarea name="description" id="description" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm"></textarea>
+        <textarea name="description" id="description" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"></textarea>
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Amenities (comma separated)</label>
-        <input name="amenities" id="amenities" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm" placeholder="Wi-Fi, AC, Mini-bar, Smart TV">
+        <input name="amenities" id="amenities" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]" placeholder="Wi-Fi, AC, Mini-bar, Smart TV">
       </div>
       <div class="flex justify-end gap-3 pt-2">
         <button type="button" onclick="GMT.closeModal('roomModal')" class="px-5 py-2.5 text-sm rounded-lg border border-[--brand-ink]/10">Cancel</button>

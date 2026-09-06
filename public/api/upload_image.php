@@ -26,7 +26,7 @@ if ($_FILES['image']['size'] > 3 * 1024 * 1024) {
     jsonResponse(['success' => false, 'message' => 'Image must be under 3MB.'], 422);
 }
 
-// Restrict context to a safe folder name — this is the only user input touching the filesystem path
+// Restrict context to a safe folder name. This is the only user input touching the filesystem path
 $context = preg_replace('/[^a-z0-9_-]/i', '', $_POST['context'] ?? 'misc') ?: 'misc';
 $uploadDir = ROOT_PATH . '/public/assets/uploads/' . $context;
 if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);

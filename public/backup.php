@@ -14,7 +14,7 @@ $csrfToken = Auth::csrfToken();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -30,12 +30,12 @@ $csrfToken = Auth::csrfToken();
     <main class="p-4 md:p-8 space-y-6 max-w-2xl">
       <div>
         <div class="font-display text-xl">Backup &amp; Restore</div>
-        <div class="text-sm text-[--brand-muted]">Full database backup and restore — Super Admin only</div>
+        <div class="text-sm text-[--brand-muted]">Full database backup and restore. Super Admin only</div>
       </div>
 
       <div class="card-surface p-6">
         <div class="font-medium mb-2">Download Backup</div>
-        <p class="text-sm text-[--brand-muted] mb-4">Exports every table — structure and data — as a single .sql file you can store safely or use to restore later.</p>
+        <p class="text-sm text-[--brand-muted] mb-4">Exports every table, structure and data, as a single .sql file you can store safely or use to restore later.</p>
         <a href="api/backup.php?action=export" class="btn-brand inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold">
           <i data-lucide="download" class="w-4 h-4"></i> Download Full Backup
         </a>
@@ -45,7 +45,7 @@ $csrfToken = Auth::csrfToken();
         <div class="font-medium mb-2 text-[--brand-danger]">Restore from Backup</div>
         <p class="text-sm text-[--brand-muted] mb-4">
           <strong>This replaces existing data with what's in the backup file.</strong>
-          Only restore a file you exported from this exact system. This cannot be undone —
+          Only restore a file you exported from this exact system. This cannot be undone;
           take a fresh backup first if you're unsure.
         </p>
         <form id="restoreForm" class="space-y-3">
@@ -100,7 +100,7 @@ document.getElementById('restoreForm').addEventListener('submit', (e) => {
     fd.append('backup_file', file);
     fd.append('csrf_token', CSRF_TOKEN);
     fd.append('action', 'restore');
-    GMT.toast('Restoring — this may take a moment…', 'info');
+    GMT.toast('Restoring. This may take a moment.', 'info');
     const res = await fetch('api/backup.php?action=restore', { method: 'POST', body: fd });
     const data = await res.json();
     GMT.toast(data.message, data.success ? 'success' : 'error');

@@ -14,7 +14,7 @@ $activeNav = 'reports';
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -42,12 +42,12 @@ $activeNav = 'reports';
       </div>
 
       <div class="card-surface p-4 flex flex-wrap gap-3 items-center no-print">
-        <select id="reportType" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 min-w-[220px]">
+        <select id="reportType" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 min-w-[220px] focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <?php foreach (REPORT_TYPES as $key => $label): ?><option value="<?= e($key) ?>"><?= e($label) ?></option><?php endforeach; ?>
         </select>
-        <input type="date" id="fromDate" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <input type="date" id="fromDate" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         <span class="text-xs text-[--brand-muted]">to</span>
-        <input type="date" id="toDate" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <input type="date" id="toDate" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         <button onclick="loadReport()" class="btn-brand px-5 py-2 text-sm font-semibold">Generate</button>
         <div class="ml-auto flex gap-2">
           <button onclick="exportReport('csv')" class="px-4 py-2 text-sm rounded-lg border border-[--brand-ink]/10 hover:bg-black/5 flex items-center gap-2"><i data-lucide="download" class="w-4 h-4"></i> CSV</button>

@@ -33,7 +33,7 @@ $phone = setting('phone', '');
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Invoice <?= e($invoice['invoice_number']) ?> — <?= e($hotelName) ?></title>
+<title>Invoice <?= e($invoice['invoice_number']) ?> | <?= e($hotelName) ?></title>
 <style>
   body { font-family: Georgia, serif; color: #241812; max-width: 720px; margin: 40px auto; padding: 0 20px; }
   h1 { font-size: 22px; margin-bottom: 2px; }
@@ -58,7 +58,7 @@ $phone = setting('phone', '');
     <strong>Billed to:</strong> <?= e($invoice['guest_name']) ?><br>
     <?= $invoice['guest_phone'] ? e($invoice['guest_phone']) . '<br>' : '' ?>
     <?= $invoice['guest_email'] ? e($invoice['guest_email']) . '<br>' : '' ?>
-    <?= $invoice['reservation_code'] ? 'Reservation: ' . e($invoice['reservation_code']) . ($invoice['room_number'] ? ' — Room ' . e($invoice['room_number']) : '') : '' ?>
+    <?= $invoice['reservation_code'] ? 'Reservation: ' . e($invoice['reservation_code']) . ($invoice['room_number'] ? ', Room ' . e($invoice['room_number']) : '') : '' ?>
   </div>
 
   <table>

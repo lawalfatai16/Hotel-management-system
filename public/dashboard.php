@@ -9,7 +9,7 @@ $db = Database::connect();
 $pageTitle = 'Dashboard';
 $activeNav = 'dashboard';
 
-// ---- KPI queries (safe defaults if tables are empty on a fresh install) ----
+// KPI queries (safe defaults if tables are empty on a fresh install)
 function scalar(PDO $db, string $sql, array $params = []): float
 {
     $stmt = $db->prepare($sql);
@@ -29,7 +29,7 @@ $eventBookings      = scalar($db, "SELECT COUNT(*) FROM events WHERE event_date 
 
 $occupancyRate = $totalRooms > 0 ? round(($occupiedRooms / $totalRooms) * 100) : 0;
 
-// ---- Chart data: last 7 days revenue ----
+// Chart data: last 7 days revenue
 $revenueLabels = [];
 $revenueValues = [];
 for ($i = 6; $i >= 0; $i--) {
@@ -38,13 +38,13 @@ for ($i = 6; $i >= 0; $i--) {
     $revenueValues[] = scalar($db, "SELECT COALESCE(SUM(amount),0) FROM payments WHERE DATE(paid_at) = ?", [$date]);
 }
 
-// ---- Chart data: booking statistics ----
+// Chart data: booking statistics
 $bookingStats = ['confirmed' => 0, 'pending' => 0, 'cancelled' => 0, 'checked_in' => 0, 'checked_out' => 0];
 foreach ($db->query("SELECT status, COUNT(*) c FROM reservations WHERE deleted_at IS NULL GROUP BY status") as $row) {
     if (isset($bookingStats[$row['status']])) $bookingStats[$row['status']] = (int) $row['c'];
 }
 
-// ---- Revenue sources ----
+// Revenue sources
 $accomRevenue = scalar($db, "SELECT COALESCE(SUM(amount),0) FROM payments WHERE reservation_id IS NOT NULL");
 $eventRevenue = scalar($db, "SELECT COALESCE(SUM(amount),0) FROM payments WHERE event_id IS NOT NULL");
 $restaurantRevenue = scalar($db, "SELECT COALESCE(SUM(total),0) FROM orders WHERE status = 'paid'");
@@ -54,7 +54,7 @@ $restaurantRevenue = scalar($db, "SELECT COALESCE(SUM(total),0) FROM orders WHER
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -73,16 +73,39 @@ $restaurantRevenue = scalar($db, "SELECT COALESCE(SUM(total),0) FROM orders WHER
 
     <main class="p-4 md:p-8 space-y-8">
 
-      <!-- Welcome / hero strip -->
+      <!-- Welcome / hero strip: cinematic rotator per the Hero Visual Experience spec -->
       <div class="relative rounded-2xl overflow-hidden">
-        <div class="hero-rotator h-40">
-          <div class="hero-slide is-active" style="background:linear-gradient(120deg,#2b1b12,#7a4a2b);"></div>
+        <div class="hero-rotator h-56" id="dashboardHero">
+          <div class="hero-slide is-active effect-zoom" style="background:#3a2618;"></div>
+          <div class="hero-slide effect-pan" style="background:#2b1b12;"></div>
+          <div class="hero-slide effect-zoom" style="background:#4a2e1f;"></div>
+          <div class="hero-slide effect-pan" style="background:#241812;"></div>
+          <!--
+            Production note: replace the flat placeholder backgrounds above with real photography
+            (exterior, room, lobby, restaurant, event hall, wedding setup). Slides alternate slow
+            zoom (effect-zoom) and slow pan (effect-pan): Image 1 zoom, Image 2 pan, Image 3 zoom,
+            Image 4 pan, per the brand spec.
+          -->
           <div class="hero-overlay"></div>
         </div>
         <div class="absolute inset-0 flex items-center px-8">
           <div class="glass-panel-dark rounded-xl px-6 py-4 text-[--brand-cream]">
             <div class="font-display text-xl">Welcome back, <?= e($currentUser['username'] ?? '') ?></div>
             <div class="text-sm text-[--brand-cream]/70 mt-1"><?= (int) $occupancyRate ?>% occupancy today · <?= (int) $todaysCheckins ?> check-ins expected</div>
+            <div class="flex gap-6 mt-4 pt-4 border-t border-[--brand-cream]/15">
+              <div>
+                <div class="text-[--brand-gold] text-lg font-semibold"><?= formatCurrency($todayRevenue) ?></div>
+                <div class="text-xs text-[--brand-cream]/60">Today's revenue</div>
+              </div>
+              <div>
+                <div class="text-[--brand-gold] text-lg font-semibold"><?= (int) $availableRooms ?></div>
+                <div class="text-xs text-[--brand-cream]/60">Rooms available</div>
+              </div>
+              <div>
+                <div class="text-[--brand-gold] text-lg font-semibold"><?= (int) $eventBookings ?></div>
+                <div class="text-xs text-[--brand-cream]/60">Upcoming events</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -115,22 +138,22 @@ $restaurantRevenue = scalar($db, "SELECT COALESCE(SUM(total),0) FROM orders WHER
 
       <!-- Charts -->
       <div class="grid lg:grid-cols-3 gap-6">
-        <div class="card-surface p-6 lg:col-span-2">
-          <div class="font-medium mb-4">Revenue — last 7 days</div>
+        <div class="neu-panel p-6 lg:col-span-2">
+          <div class="font-medium mb-4">Revenue (Last 7 Days)</div>
           <canvas id="revenueChart" height="110"></canvas>
         </div>
-        <div class="card-surface p-6">
+        <div class="neu-panel p-6">
           <div class="font-medium mb-4">Booking Statistics</div>
           <canvas id="bookingChart" height="200"></canvas>
         </div>
       </div>
 
       <div class="grid lg:grid-cols-3 gap-6">
-        <div class="card-surface p-6">
+        <div class="neu-panel p-6">
           <div class="font-medium mb-4">Revenue Sources</div>
           <canvas id="revenueSourceChart" height="200"></canvas>
         </div>
-        <div class="card-surface p-6 lg:col-span-2">
+        <div class="neu-panel p-6 lg:col-span-2">
           <div class="font-medium mb-4">Occupancy</div>
           <div class="flex items-center gap-6">
             <div class="relative w-32 h-32 shrink-0">
@@ -159,6 +182,18 @@ $restaurantRevenue = scalar($db, "SELECT COALESCE(SUM(total),0) FROM orders WHER
     const heroStrip = document.querySelector('.hero-rotator').closest('.relative');
     m.animate(heroStrip, { opacity: [0, 1], y: [-10, 0] }, { duration: 0.5, easing: [0.22, 1, 0.36, 1] });
   });
+
+  // Cinematic hero rotation: cycles through the 4 slides, each already carrying
+  // its own alternating zoom/pan animation via the effect-zoom/effect-pan classes.
+  (() => {
+    const slides = document.querySelectorAll('#dashboardHero .hero-slide');
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('is-active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('is-active');
+    }, 7000);
+  })();
 
   const brandGold = '#C89B5A', brandCognac = '#7A4A2B', brandCoffee = '#4A2E1F', brandCream2 = '#EFE6D6';
 

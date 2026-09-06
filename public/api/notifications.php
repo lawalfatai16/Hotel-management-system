@@ -22,7 +22,7 @@ switch ($method) {
             $stmt->execute([':uid' => $user['id']]);
             $stored = $stmt->fetchAll();
 
-            // Live computed alerts — not stored, so they never go stale or duplicate
+            // Live computed alerts: not stored, so they never go stale or duplicate
             $computed = [];
 
             $checkins = $db->query("SELECT COUNT(*) FROM reservations WHERE status IN ('pending','confirmed') AND check_in_date <= CURDATE() AND deleted_at IS NULL")->fetchColumn();

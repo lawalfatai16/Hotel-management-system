@@ -16,7 +16,7 @@ $currencySymbol = setting('currency_symbol', '₦');
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -42,7 +42,7 @@ $currencySymbol = setting('currency_symbol', '₦');
     <main class="p-4 md:p-8 space-y-6">
       <div class="no-print">
         <div class="font-display text-xl">Guest Check-Out</div>
-        <div class="text-sm text-[--brand-muted]">Currently checked-in guests — review the final bill before checking out</div>
+        <div class="text-sm text-[--brand-muted]">Currently checked-in guests. Review the final bill before checking out</div>
       </div>
 
       <div class="card-surface p-4 no-print">
@@ -73,7 +73,7 @@ $currencySymbol = setting('currency_symbol', '₦');
     <div id="checkoutDetail" class="space-y-4 text-sm"></div>
     <div class="mt-4">
       <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Notes (optional)</label>
-      <textarea id="checkoutNotes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm"></textarea>
+      <textarea id="checkoutNotes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"></textarea>
     </div>
     <div class="flex justify-end gap-3 pt-6">
       <button type="button" onclick="GMT.closeModal('checkoutModal')" class="px-5 py-2.5 text-sm rounded-lg border border-[--brand-ink]/10">Cancel</button>
@@ -191,7 +191,7 @@ function sendCheckoutWhatsApp() {
 function printInvoice(invoiceNumber) {
   const s = window.__invoiceData;
   if (!s) return;
-  const rows = s.line_items.map(li => `<p>${li.label} — ${money(li.amount)}</p>`).join('');
+  const rows = s.line_items.map(li => `<p>${li.label}: ${money(li.amount)}</p>`).join('');
   document.getElementById('invoiceContent').innerHTML = `
     <p><strong>Invoice:</strong> ${invoiceNumber || ''}</p>
     <p><strong>Reservation:</strong> ${s.reservation_code}</p>

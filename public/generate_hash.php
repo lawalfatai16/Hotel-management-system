@@ -1,6 +1,6 @@
 <?php
 /**
- * TEMPORARY HELPER — generates a password hash you can paste into the database.
+ * TEMPORARY HELPER: generates a password hash you can paste into the database.
  * Delete this file once you're done. Do not leave it on a live/production server.
  */
 $hash = null;
@@ -35,6 +35,6 @@ if ($password !== '') {
     <p>Copy the text above, then run this in phpMyAdmin's SQL tab (or wherever you manage the database):</p>
     <div class="result">UPDATE users SET password_hash = '<?= $hash ?>' WHERE username = 'admin';</div>
   <?php endif; ?>
-  <div class="warn">⚠️ Delete this file (generate_hash.php) from your server once you're done. It shouldn't stay on a live system.</div>
+  <div class="warn">Warning: delete this file (generate_hash.php) from your server once you're done. It shouldn't stay on a live system.</div>
 </body>
 </html>

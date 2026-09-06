@@ -34,7 +34,7 @@ $dateStamp = date('Y-m-d');
 $headers = ['Invoice #', 'Guest', 'Reservation', 'Subtotal', 'Discount', 'Tax', 'Total', 'Amount Paid', 'Balance', 'Status', 'Issued'];
 
 if ($format === 'xls') {
-    // Excel-compatible export: a simple HTML table served with an .xls extension —
+    // Excel-compatible export: a simple HTML table served with an .xls extension.
     // Excel opens this natively. Swap for PhpSpreadsheet at build time for a native
     // .xlsx binary; see desktop/packaging-instructions.md.
     $filename = 'GMT_Hotel_Invoices_' . $dateStamp . '.xls';

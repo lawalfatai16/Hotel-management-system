@@ -39,7 +39,7 @@ the end user, wrap it with **PHP Desktop** (Chromium + PHP embedded).
 
 ## Required PHP extensions
 `pdo_mysql`, `mbstring`, `openssl`, `zip`, `gd` (for image handling),
-`fileinfo`. PHP Desktop builds typically bundle these — verify with
+`fileinfo`. PHP Desktop builds typically bundle these; verify with
 `phpinfo()` before shipping.
 
 ## Libraries to add for exports (Section 20 of the spec)

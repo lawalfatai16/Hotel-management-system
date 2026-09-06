@@ -48,7 +48,7 @@ $topGuests = $db->query(
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -67,17 +67,17 @@ $topGuests = $db->query(
         <div class="text-sm text-[--brand-muted]">30-day trends across revenue, occupancy, and guests</div>
       </div>
 
-      <div class="card-surface p-6">
-        <div class="font-medium mb-4">Revenue — Last 30 Days</div>
+      <div class="neu-panel p-6">
+        <div class="font-medium mb-4">Revenue (Last 30 Days)</div>
         <canvas id="revenueTrend" height="80"></canvas>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-6">
-        <div class="card-surface p-6">
+        <div class="neu-panel p-6">
           <div class="font-medium mb-4">Occupancy Trend</div>
           <canvas id="occupancyTrend" height="140"></canvas>
         </div>
-        <div class="card-surface p-6">
+        <div class="neu-panel p-6">
           <div class="font-medium mb-4">Revenue by Room Type (30 days)</div>
           <canvas id="roomTypeChart" height="140"></canvas>
         </div>

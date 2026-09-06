@@ -19,7 +19,7 @@ $eventStatuses = ['inquiry'=>'Inquiry','confirmed'=>'Confirmed','completed'=>'Co
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -43,9 +43,9 @@ $eventStatuses = ['inquiry'=>'Inquiry','confirmed'=>'Confirmed','completed'=>'Co
           <div class="text-sm text-[--brand-muted]">Weddings, conferences, and every booking on the Events Centre calendar</div>
         </div>
         <div class="flex items-center gap-2">
-          <div class="flex rounded-lg border border-[--brand-ink]/10 overflow-hidden">
-            <button id="tabTable" onclick="switchView('table')" class="px-4 py-2 text-sm font-medium bg-[--brand-coffee] text-[--brand-cream]">Table</button>
-            <button id="tabCalendar" onclick="switchView('calendar')" class="px-4 py-2 text-sm font-medium">Calendar</button>
+          <div class="neu-toggle-group">
+            <button id="tabTable" onclick="switchView('table')" class="neu-toggle-btn is-active">Table</button>
+            <button id="tabCalendar" onclick="switchView('calendar')" class="neu-toggle-btn">Calendar</button>
           </div>
           <button onclick="openEventModal()" class="btn-brand px-5 py-2.5 text-sm font-semibold flex items-center gap-2">
             <i data-lucide="plus" class="w-4 h-4"></i> New Event
@@ -61,11 +61,11 @@ $eventStatuses = ['inquiry'=>'Inquiry','confirmed'=>'Confirmed','completed'=>'Co
             <input id="searchInput" type="text" placeholder="Search event, client, or code…"
               class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[--brand-ink]/10 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           </div>
-          <select id="typeFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+          <select id="typeFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">All types</option>
             <?php foreach ($eventTypes as $k=>$v): ?><option value="<?= $k ?>"><?= $v ?></option><?php endforeach; ?>
           </select>
-          <select id="statusFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+          <select id="statusFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">All statuses</option>
             <?php foreach ($eventStatuses as $k=>$v): ?><option value="<?= $k ?>"><?= $v ?></option><?php endforeach; ?>
           </select>
@@ -124,77 +124,77 @@ $eventStatuses = ['inquiry'=>'Inquiry','confirmed'=>'Confirmed','completed'=>'Co
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Client Name</label>
-          <input name="client_name" id="client_name" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="client_name" id="client_name" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Event Name</label>
-          <input name="event_name" id="event_name" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="event_name" id="event_name" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Client Phone</label>
-          <input name="client_phone" id="client_phone" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="client_phone" id="client_phone" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Client Email</label>
-          <input name="client_email" id="client_email" type="email" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="client_email" id="client_email" type="email" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Event Type</label>
-          <select name="event_type" id="event_type" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="event_type" id="event_type" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <?php foreach ($eventTypes as $k=>$v): ?><option value="<?= $k ?>"><?= $v ?></option><?php endforeach; ?>
           </select>
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Package</label>
-          <select id="package_id" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select id="package_id" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="">Custom (no package)</option>
-            <?php foreach ($packages as $p): ?><option value="<?= (int)$p['id'] ?>" data-price="<?= (float)$p['price'] ?>"><?= e($p['name']) ?> — <?= formatCurrency((float)$p['price']) ?></option><?php endforeach; ?>
+            <?php foreach ($packages as $p): ?><option value="<?= (int)$p['id'] ?>" data-price="<?= (float)$p['price'] ?>"><?= e($p['name']) ?>: <?= formatCurrency((float)$p['price']) ?></option><?php endforeach; ?>
           </select>
         </div>
       </div>
       <div class="grid grid-cols-3 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Event Date</label>
-          <input type="date" name="event_date" id="event_date" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="date" name="event_date" id="event_date" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Start Time</label>
-          <input type="time" name="start_time" id="start_time" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="time" name="start_time" id="start_time" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">End Time</label>
-          <input type="time" name="end_time" id="end_time" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="time" name="end_time" id="end_time" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Venue</label>
-          <input name="venue" id="venue" required placeholder="e.g. Main Events Hall" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input name="venue" id="venue" required placeholder="e.g. Main Events Hall" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5"># of Guests</label>
-          <input type="number" name="number_of_guests" id="number_of_guests" min="1" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" name="number_of_guests" id="number_of_guests" min="1" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
       <div class="grid grid-cols-3 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Price (<?= e($currencySymbol) ?>)</label>
-          <input type="number" name="price" id="price" min="0" step="0.01" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" name="price" id="price" min="0" step="0.01" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Deposit (<?= e($currencySymbol) ?>)</label>
-          <input type="number" name="deposit" id="deposit" min="0" step="0.01" value="0" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" name="deposit" id="deposit" min="0" step="0.01" value="0" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Status</label>
-          <select name="status" id="status" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="status" id="status" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <?php foreach ($eventStatuses as $k=>$v): ?><option value="<?= $k ?>"><?= $v ?></option><?php endforeach; ?>
           </select>
         </div>
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Special Requirements</label>
-        <textarea name="special_requirements" id="special_requirements" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm"></textarea>
+        <textarea name="special_requirements" id="special_requirements" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"></textarea>
       </div>
       <div class="card-surface p-4 flex items-center justify-between bg-[--brand-cream-2]">
         <div class="text-sm text-[--brand-muted]">Price − Deposit</div>
@@ -229,8 +229,8 @@ let calendarMonth = new Date();
 function switchView(view) {
   document.getElementById('viewTable').classList.toggle('hidden', view !== 'table');
   document.getElementById('viewCalendar').classList.toggle('hidden', view !== 'calendar');
-  document.getElementById('tabTable').className = `px-4 py-2 text-sm font-medium ${view==='table' ? 'bg-[--brand-coffee] text-[--brand-cream]' : ''}`;
-  document.getElementById('tabCalendar').className = `px-4 py-2 text-sm font-medium ${view==='calendar' ? 'bg-[--brand-coffee] text-[--brand-cream]' : ''}`;
+  document.getElementById('tabTable').classList.toggle('is-active', view === 'table');
+  document.getElementById('tabCalendar').classList.toggle('is-active', view === 'calendar');
   if (view === 'calendar') loadCalendar();
 }
 
@@ -376,7 +376,7 @@ async function loadCalendar() {
     const dayEvents = res.data.filter(ev => ev.event_date === dateStr);
     const pills = dayEvents.slice(0,3).map(ev => {
       const color = { confirmed:'bg-green-100 text-green-800', inquiry:'bg-amber-100 text-amber-800' }[ev.status] || 'bg-gray-100';
-      return `<div class="${color} rounded px-1.5 py-0.5 text-[10px] truncate" title="${ev.event_name} — ${ev.client_name}">${ev.event_name}</div>`;
+      return `<div class="${color} rounded px-1.5 py-0.5 text-[10px] truncate" title="${ev.event_name}: ${ev.client_name}">${ev.event_name}</div>`;
     }).join('');
     const more = dayEvents.length > 3 ? `<div class="text-[10px] text-[--brand-muted]">+${dayEvents.length - 3} more</div>` : '';
     cells += `

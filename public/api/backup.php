@@ -41,7 +41,7 @@ function exportBackup(PDO $db, array $user): void
     header('Content-Type: application/sql; charset=utf-8');
     header('Content-Disposition: attachment; filename="' . $filename . '"');
 
-    echo "-- {$hotelName} — Database Backup\n";
+    echo "-- {$hotelName} Database Backup\n";
     echo "-- Generated: " . date('Y-m-d H:i:s') . "\n";
     echo "SET FOREIGN_KEY_CHECKS=0;\n\n";
 
@@ -103,7 +103,7 @@ function restoreBackup(PDO $db, array $user): void
         $db->rollBack();
         $db->exec('SET FOREIGN_KEY_CHECKS=1');
         error_log('Restore failed: ' . $e->getMessage());
-        jsonResponse(['success' => false, 'message' => 'Restore failed and was rolled back — no changes were made. Check that the file is a valid backup from this system.'], 500);
+        jsonResponse(['success' => false, 'message' => 'Restore failed and was rolled back. No changes were made. Check that the file is a valid backup from this system.'], 500);
     }
 
     Auth::logAudit($user['id'], "{$user['username']} restored the database from a backup file ({$executed} statements)", 'backup');
@@ -124,7 +124,7 @@ function splitSqlStatements(string $sql): array
         $current .= $char;
 
         if ($inString) {
-            if ($char === '\\') { // escaped char — consume the next one too
+            if ($char === '\\') { // escaped char, consume the next one too
                 if ($i + 1 < $length) { $current .= $sql[++$i]; }
                 continue;
             }

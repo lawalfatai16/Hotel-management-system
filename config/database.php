@@ -1,7 +1,7 @@
 <?php
 /**
  * PDO database connection (singleton).
- * Uses prepared statements everywhere — never build queries with string concatenation.
+ * Uses prepared statements everywhere. Never build queries with string concatenation.
  */
 
 class Database

@@ -1,29 +1,29 @@
 /**
- * GMT Hotel — shared front-end utilities.
+ * GMT Hotel: shared front-end utilities.
  * No build step required; works directly in the packaged desktop shell.
  *
- * Animation engine: Motion (https://motion.dev) — the vanilla-JS sibling of
+ * Animation engine: Motion (https://motion.dev), the vanilla-JS sibling of
  * Framer Motion, built by the same team on the same spring-physics engine.
  * Framer Motion itself is React-only and cannot run in this PHP/vanilla-JS
  * stack; Motion is the correct equivalent here. Loaded lazily via dynamic
- * import so a slow/offline first load never blocks the UI — everything
+ * import so a slow/offline first load never blocks the UI. Everything
  * degrades to instant show/hide if it can't fetch.
  *
  * NOTE for desktop packaging: this pulls Motion from a CDN at runtime, same
  * as Tailwind/Chart.js/Lucide elsewhere in this project. For a fully
- * offline .exe, vendor `motion.js` locally and swap the import path below —
- * see desktop/packaging-instructions.md.
+ * offline .exe, vendor `motion.js` locally and swap the import path below.
+ * See desktop/packaging-instructions.md.
  */
 
 const GMT = (() => {
-  const EASE = [0.22, 1, 0.36, 1]; // soft, expensive-feeling deceleration — matches the brand's restrained motion language
+  const EASE = [0.22, 1, 0.36, 1]; // soft, expensive-feeling deceleration, matching the brand's restrained motion language
 
   let motionLib = null;
   const motionReady = import('https://cdn.jsdelivr.net/npm/motion@latest/+esm')
     .then((m) => { motionLib = m; return m; })
-    .catch(() => null); // offline / blocked — every caller below falls back gracefully
+    .catch(() => null); // offline or blocked; every caller below falls back gracefully
 
-  // ---------- Sidebar ----------
+  // Sidebar
   function initSidebar() {
     const sidebar = document.getElementById('sidebar');
     const toggleBtn = document.getElementById('sidebarToggle');
@@ -60,7 +60,7 @@ const GMT = (() => {
     });
   }
 
-  // ---------- Toasts ----------
+  // Toasts
   async function toast(message, type = 'success') {
     const host = document.getElementById('toastHost');
     if (!host) return;
@@ -90,7 +90,7 @@ const GMT = (() => {
     }, 3200);
   }
 
-  // ---------- Modal helpers ----------
+  // Modal helpers
   async function openModal(id) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -122,7 +122,7 @@ const GMT = (() => {
     document.body.classList.remove('overflow-hidden');
   }
 
-  // ---------- Confirm dialog (replaces window.confirm with branded modal) ----------
+  // Confirm dialog (replaces window.confirm with branded modal)
   function confirmAction(message, onConfirm) {
     const modal = document.getElementById('confirmModal');
     if (!modal) { if (confirm(message)) onConfirm(); return; }
@@ -137,7 +137,7 @@ const GMT = (() => {
     });
   }
 
-  // ---------- List / card entrance (dashboard KPIs, room grid, table rows) ----------
+  // List / card entrance (dashboard KPIs, room grid, table rows)
   // Call after rendering dynamic content: GMT.entrance('#roomGrid > *')
   async function entrance(selector, opts = {}) {
     await motionReady;
@@ -151,23 +151,23 @@ const GMT = (() => {
     );
   }
 
-  // ---------- WhatsApp send-assist ----------
-  // WhatsApp's wa.me links can only pre-fill text, not attach files — there's no
+  // WhatsApp send-assist
+  // WhatsApp's wa.me links can only pre-fill text, not attach files. There's no
   // way to auto-attach a PDF without the paid/gated WhatsApp Business API. This
   // downloads the real PDF and opens WhatsApp with a message ready; the file
   // just needs to be attached manually in the chat that opens.
   function sendWhatsApp(phone, message, pdfUrl) {
     if (!phone) {
-      toast('This guest has no phone number on file — add one before sending via WhatsApp.', 'error');
+      toast('This guest has no phone number on file. Add one before sending via WhatsApp.', 'error');
       return;
     }
     if (pdfUrl) window.open(pdfUrl, '_blank');
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     setTimeout(() => window.open(waUrl, '_blank'), 300);
-    toast('PDF downloading — attach it in the WhatsApp chat that just opened.', 'info');
+    toast('PDF downloading. Attach it in the WhatsApp chat that just opened.', 'info');
   }
 
-  // ---------- Debounce ----------
+  // Debounce
   function debounce(fn, delay = 350) {
     let t;
     return (...args) => {
@@ -176,7 +176,7 @@ const GMT = (() => {
     };
   }
 
-  // ---------- Fetch wrapper ----------
+  // Fetch wrapper
   async function api(url, options = {}) {
     const res = await fetch(url, {
       headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },

@@ -4,7 +4,7 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
 ?>
 <header class="sticky top-0 z-20 flex items-center justify-between px-4 md:px-8 py-4 bg-[--brand-cream]/85 backdrop-blur border-b border-[--brand-ink]/5">
   <div class="flex items-center gap-4">
-    <button id="sidebarToggle" class="p-2 rounded-lg hover:bg-black/5">
+    <button id="sidebarToggle" class="neu-icon-btn p-2">
       <i data-lucide="menu" class="w-5 h-5 text-[--brand-ink]"></i>
     </button>
     <div>
@@ -15,7 +15,7 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
 
   <div class="flex items-center gap-4">
     <div class="relative">
-      <button id="notifBell" onclick="toggleNotifDropdown()" class="relative p-2 rounded-lg hover:bg-black/5">
+      <button id="notifBell" onclick="toggleNotifDropdown()" class="neu-icon-btn relative p-2">
         <i data-lucide="bell" class="w-5 h-5 text-[--brand-ink]"></i>
         <span id="notifBadge" class="hidden absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-[--brand-cognac] text-white text-[10px] flex items-center justify-center"></span>
       </button>

@@ -13,7 +13,7 @@ $activeNav = 'audit_logs';
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -37,9 +37,9 @@ $activeNav = 'audit_logs';
           <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[--brand-muted]"></i>
           <input id="searchInput" type="text" placeholder="Search action or user…" class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[--brand-ink]/10 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
-        <select id="moduleFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2"><option value="">All modules</option></select>
-        <input type="date" id="dateFrom" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
-        <input type="date" id="dateTo" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <select id="moduleFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"><option value="">All modules</option></select>
+        <input type="date" id="dateFrom" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
+        <input type="date" id="dateTo" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
       </div>
 
       <div class="card-surface overflow-hidden">
@@ -91,7 +91,7 @@ async function loadLogs(page = 1) {
       <td class="px-5 py-3">${l.username || 'System'}</td>
       <td class="px-5 py-3"><span class="badge badge-reserved">${l.module.replace('_',' ')}</span></td>
       <td class="px-5 py-3">${l.action}</td>
-      <td class="px-5 py-3 text-[--brand-muted]">${l.ip_address || '—'}</td>
+      <td class="px-5 py-3 text-[--brand-muted]">${l.ip_address || 'N/A'}</td>
     </tr>
   `).join('');
   GMT.entrance('#logTableBody tr');

@@ -15,7 +15,7 @@ $currencySymbol = setting('currency_symbol', '₦');
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -36,7 +36,7 @@ $currencySymbol = setting('currency_symbol', '₦');
       <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div class="font-display text-xl">Room Types</div>
-          <div class="text-sm text-[--brand-muted]">Categories rooms are built from — pricing, capacity, and amenities</div>
+          <div class="text-sm text-[--brand-muted]">Categories rooms are built from: pricing, capacity, and amenities</div>
         </div>
         <button onclick="openTypeModal()" class="btn-brand px-5 py-2.5 text-sm font-semibold flex items-center gap-2">
           <i data-lucide="plus" class="w-4 h-4"></i> Add Room Type
@@ -73,25 +73,25 @@ $currencySymbol = setting('currency_symbol', '₦');
       <input type="hidden" id="typeId" name="id">
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Name</label>
-        <input name="name" id="name" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm" placeholder="e.g. Deluxe Room">
+        <input name="name" id="name" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]" placeholder="e.g. Deluxe Room">
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Base Price (<?= e($currencySymbol) ?>)</label>
-          <input type="number" name="base_price" id="base_price" min="0" step="0.01" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" name="base_price" id="base_price" min="0" step="0.01" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Capacity</label>
-          <input type="number" name="capacity" id="capacity" min="1" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" name="capacity" id="capacity" min="1" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Description</label>
-        <textarea name="description" id="description" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm"></textarea>
+        <textarea name="description" id="description" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"></textarea>
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Amenities (comma separated)</label>
-        <input name="amenities" id="amenities" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm" placeholder="Wi-Fi, AC, Smart TV, Mini-bar">
+        <input name="amenities" id="amenities" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]" placeholder="Wi-Fi, AC, Smart TV, Mini-bar">
       </div>
       <div class="flex justify-end gap-3 pt-2">
         <button type="button" onclick="GMT.closeModal('typeModal')" class="px-5 py-2.5 text-sm rounded-lg border border-[--brand-ink]/10">Cancel</button>
@@ -134,7 +134,7 @@ async function loadTypes() {
         <span class="badge badge-available">${t.room_count} room${t.room_count == 1 ? '' : 's'}</span>
       </div>
       <div class="text-sm text-[--brand-muted] mb-2">${t.description || 'No description'}</div>
-      <div class="text-xs text-[--brand-muted] mb-3">${t.amenities || '—'}</div>
+      <div class="text-xs text-[--brand-muted] mb-3">${t.amenities || 'N/A'}</div>
       <div class="text-lg font-semibold mb-4">${t.base_price_display}<span class="text-xs font-normal text-[--brand-muted]"> / night · up to ${t.capacity} guests</span></div>
       <div class="flex gap-2">
         <button onclick="editType(${t.id})" class="flex-1 py-2 text-xs rounded-lg border border-[--brand-ink]/10 hover:bg-black/5">Edit</button>

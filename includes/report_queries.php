@@ -2,7 +2,7 @@
 /**
  * Builds report data for a given type + date range.
  * Returns: ['title'=>, 'columns'=>[[key,label,type]], 'rows'=>[...], 'chart'=>?, 'totals'=>?]
- * column type is one of: text, number, currency, date, datetime — used by both
+ * column type is one of: text, number, currency, date, datetime, used by both
  * the on-screen table (JS formats) and the CSV/Excel export (PHP formats),
  * so every report and every export format reads from the exact same query.
  */

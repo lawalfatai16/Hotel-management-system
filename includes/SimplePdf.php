@@ -1,10 +1,10 @@
 <?php
 /**
- * SimplePdf — a minimal, dependency-free PDF generator for single-page
+ * SimplePdf: a minimal, dependency-free PDF generator for single-page
  * text documents (invoices, confirmation slips). No Composer package,
- * no external binary — just the PDF spec's plainest possible structure:
+ * no external binary. Just the PDF spec's plainest possible structure:
  * one Catalog, one Pages, one Page, two base-14 fonts (Helvetica /
- * Helvetica-Bold, which every PDF reader has built in — no font
+ * Helvetica-Bold, which every PDF reader has built in. No font
  * embedding needed), and one content stream.
  *
  * Coordinates are in PDF points, origin at bottom-left. To make this
@@ -58,7 +58,7 @@ class SimplePdf
 
     private function escape(string $text): string
     {
-        // Base-14 Helvetica only supports WinAnsi/Latin-1 — transliterate so
+        // Base-14 Helvetica only supports WinAnsi/Latin-1, so transliterate
         // currency symbols like ₦ never produce a corrupt content stream.
         $text = str_replace('₦', 'NGN ', $text);
         $text = @iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $text) ?: $text;

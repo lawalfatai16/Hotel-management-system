@@ -152,7 +152,7 @@ switch ($method) {
             if (empty($input['paid_at'])) $errors[] = 'Payment date is required.';
             if ($errors) jsonResponse(['success' => false, 'message' => implode(' ', $errors)], 422);
 
-            // The reservation/event this payment is attached to is intentionally not editable —
+            // The reservation/event this payment is attached to is intentionally not editable:
             // to move a payment, delete it and record a new one against the correct booking.
             $db->beginTransaction();
             try {

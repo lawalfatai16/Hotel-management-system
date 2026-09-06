@@ -143,7 +143,7 @@ function buildCheckoutSummary(PDO $db, int $reservationId): ?array
     $amountPaid = (float) $paidStmt->fetchColumn();
 
     $lineItems = [
-        ['label' => "Room {$r['room_number']} — {$plannedNights} night(s) @ " . formatCurrency($roomRate), 'qty' => $plannedNights, 'unit_price' => $roomRate, 'amount' => $roomRate * $plannedNights],
+        ['label' => "Room {$r['room_number']}, {$plannedNights} night(s) @ " . formatCurrency($roomRate), 'qty' => $plannedNights, 'unit_price' => $roomRate, 'amount' => $roomRate * $plannedNights],
     ];
     if ($extraNights > 0) {
         $lineItems[] = ['label' => "Additional night(s) beyond planned check-out", 'qty' => $extraNights, 'unit_price' => $roomRate, 'amount' => $additionalNightsCharge];

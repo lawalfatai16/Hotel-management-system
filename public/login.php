@@ -28,7 +28,7 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($hotelName) ?> — Sign In</title>
+<title><?= e($hotelName) ?> | Sign In</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -38,22 +38,30 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
 
   <!-- Boot / loading sequence -->
   <div id="bootScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[--brand-espresso] text-[--brand-cream] transition-opacity duration-700">
-    <div class="font-display text-3xl tracking-wide mb-3">GMT</div>
-    <div class="text-xs tracking-[0.35em] uppercase text-[--brand-gold] mb-8">Hotel &amp; Events Centre</div>
-    <div class="w-40 h-[2px] bg-white/10 overflow-hidden rounded-full">
-      <div id="bootBar" class="h-full bg-[--brand-gold]" style="width:0%; transition: width 1.1s ease;"></div>
+    <div class="relative w-28 h-28 mb-6">
+      <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(245,239,228,0.08)" stroke-width="2.5"></circle>
+        <circle id="bootRing" cx="50" cy="50" r="44" fill="none" stroke="#C89B5A" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="276.5"></circle>
+      </svg>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <span id="bootMark" class="font-display text-2xl tracking-wide">GMT</span>
+      </div>
     </div>
+    <div class="text-xs tracking-[0.35em] uppercase text-[--brand-gold] mb-1">Hotel &amp; Events Centre</div>
+    <div class="text-[10px] tracking-[0.2em] uppercase text-[--brand-cream]/40">Preparing your experience</div>
   </div>
 
   <div class="hero-rotator h-full w-full relative">
-    <div class="hero-slide is-active" style="background:linear-gradient(135deg,#3a2618,#5c3a24);"></div>
-    <div class="hero-slide" style="background:linear-gradient(135deg,#2b1b12,#7a4a2b);"></div>
-    <div class="hero-slide" style="background:linear-gradient(135deg,#4a2e1f,#c89b5a);"></div>
-    <div class="hero-slide" style="background:linear-gradient(135deg,#241812,#4a2e1f);"></div>
+    <div class="hero-slide is-active effect-zoom" style="background:#3a2618;"></div>
+    <div class="hero-slide effect-pan" style="background:#2b1b12;"></div>
+    <div class="hero-slide effect-zoom" style="background:#4a2e1f;"></div>
+    <div class="hero-slide effect-pan" style="background:#241812;"></div>
     <!--
-      Production note: replace the gradient backgrounds above with real photography, e.g.
-      style="background-image:url('assets/img/hero-1.jpg')" — exterior, room, lobby,
-      restaurant, event hall, wedding setup, per the brand spec.
+      Production note: replace the flat placeholder backgrounds above with real photography, e.g.
+      style="background-image:url('assets/img/hero-1.jpg')". Use exterior, room, lobby,
+      restaurant, event hall, and wedding setup shots, per the brand spec. Slides alternate
+      slow zoom (effect-zoom) and slow pan (effect-pan) per the Hero Visual Experience spec:
+      Image 1 zoom, Image 2 pan, Image 3 zoom, Image 4 pan. Keep new slides in that order.
     -->
     <div class="hero-overlay"></div>
 
@@ -63,7 +71,7 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
       <div id="brandPanel" class="hidden lg:flex flex-col text-[--brand-cream] max-w-md opacity-0">
         <div class="font-display text-5xl leading-tight mb-4"><?= e($hotelName) ?></div>
         <p class="text-[--brand-cream]/75 text-sm leading-relaxed">
-          Effortless management for every reservation, event, and guest experience —
+          Effortless management for every reservation, event, and guest experience,
           designed for the standard GMT is known for.
         </p>
         <div class="glass-panel-dark mt-10 rounded-xl px-5 py-4 inline-flex gap-8 w-fit">
@@ -86,12 +94,12 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
         </div>
 
         <?php if ($timeout): ?>
-          <div class="mb-4 text-sm rounded-md px-4 py-3 bg-amber-50 text-amber-800 border border-amber-200">
+          <div class="mb-4 text-sm rounded-lg px-4 py-3 bg-amber-50 text-amber-800 border border-amber-200">
             Your session expired due to inactivity. Please sign in again.
           </div>
         <?php endif; ?>
         <?php if ($error): ?>
-          <div class="mb-4 text-sm rounded-md px-4 py-3 bg-red-50 text-red-700 border border-red-200"><?= e($error) ?></div>
+          <div class="mb-4 text-sm rounded-lg px-4 py-3 bg-red-50 text-red-700 border border-red-200"><?= e($error) ?></div>
         <?php endif; ?>
 
         <form method="POST" class="space-y-5">
@@ -100,7 +108,7 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
           <div>
             <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Username or email</label>
             <input type="text" name="username" required autofocus
-              class="w-full rounded-lg border border-[--brand-ink]/10 bg-white/70 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"
+              class="neu-input w-full px-4 py-2.5 text-sm text-[--brand-ink]"
               placeholder="e.g. admin">
           </div>
 
@@ -108,7 +116,7 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
             <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Password</label>
             <div class="relative">
               <input type="password" id="passwordInput" name="password" required
-                class="w-full rounded-lg border border-[--brand-ink]/10 bg-white/70 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold] pr-12"
+                class="neu-input w-full px-4 py-2.5 text-sm text-[--brand-ink] pr-12"
                 placeholder="••••••••">
               <button type="button" id="togglePassword" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[--brand-muted] hover:text-[--brand-cognac]">Show</button>
             </div>
@@ -135,11 +143,8 @@ $hotelName = setting('hotel_name', 'GMT Hotel and Events Centre');
 
 <script src="assets/js/app.js"></script>
 <script>
-  // Boot sequence — Motion drives the handoff from boot screen to login card
+  // Boot sequence: a CSS-driven ring animates itself; Motion drives the handoff to the login card
   window.addEventListener('load', async () => {
-    const bar = document.getElementById('bootBar');
-    requestAnimationFrame(() => bar.style.width = '100%');
-
     setTimeout(async () => {
       const boot = document.getElementById('bootScreen');
       const card = document.getElementById('loginCard');

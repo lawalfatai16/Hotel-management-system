@@ -55,7 +55,7 @@ function statusBadgeGuest($status) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -153,7 +153,7 @@ function statusBadgeGuest($status) {
                   <td class="px-5 py-3"><?= formatDate($p['paid_at']) ?></td>
                   <td class="px-5 py-3"><?= formatCurrency((float) $p['amount']) ?></td>
                   <td class="px-5 py-3"><?= e(ucwords(str_replace('_',' ',$p['payment_method']))) ?></td>
-                  <td class="px-5 py-3 text-[--brand-muted]"><?= e($p['reference_number'] ?: '—') ?></td>
+                  <td class="px-5 py-3 text-[--brand-muted]"><?= e($p['reference_number'] ?: 'N/A') ?></td>
                 </tr>
               <?php endforeach; ?>
               <?php if (!$payments): ?>

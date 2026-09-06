@@ -15,7 +15,7 @@ $currencySymbol = setting('currency_symbol', '₦');
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($pageTitle) ?> — GMT Hotel and Events Centre</title>
+<title><?= e($pageTitle) ?> | GMT Hotel and Events Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -49,7 +49,7 @@ $currencySymbol = setting('currency_symbol', '₦');
           <input id="searchInput" type="text" placeholder="Search guest, reservation, event, or reference…"
             class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[--brand-ink]/10 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
-        <select id="methodFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <select id="methodFilter" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
           <option value="">All methods</option>
           <option value="cash">Cash</option>
           <option value="bank_transfer">Bank Transfer</option>
@@ -57,8 +57,8 @@ $currencySymbol = setting('currency_symbol', '₦');
           <option value="card">Card</option>
           <option value="other">Other</option>
         </select>
-        <input type="date" id="dateFrom" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
-        <input type="date" id="dateTo" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2">
+        <input type="date" id="dateFrom" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
+        <input type="date" id="dateTo" class="text-sm rounded-lg border border-[--brand-ink]/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
       </div>
 
       <div class="card-surface overflow-hidden">
@@ -89,15 +89,15 @@ $currencySymbol = setting('currency_symbol', '₦');
       <button onclick="GMT.closeModal('paymentModal')" class="text-[--brand-muted] hover:text-[--brand-ink]"><i data-lucide="x" class="w-5 h-5"></i></button>
     </div>
     <form id="paymentForm" class="space-y-4">
-      <div class="flex rounded-lg border border-[--brand-ink]/10 overflow-hidden w-fit">
-        <button type="button" id="typeReservation" onclick="setPaymentType('reservation')" class="px-4 py-2 text-sm font-medium bg-[--brand-coffee] text-[--brand-cream]">Reservation</button>
-        <button type="button" id="typeEvent" onclick="setPaymentType('event')" class="px-4 py-2 text-sm font-medium">Event</button>
+      <div class="neu-toggle-group w-fit">
+        <button type="button" id="typeReservation" onclick="setPaymentType('reservation')" class="neu-toggle-btn is-active">Reservation</button>
+        <button type="button" id="typeEvent" onclick="setPaymentType('event')" class="neu-toggle-btn">Event</button>
       </div>
 
       <div id="reservationPicker" class="relative">
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Reservation</label>
         <input id="reservationSearch" autocomplete="off" placeholder="Search reservation code, guest, or room…"
-          class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         <div id="reservationResults" class="hidden absolute z-10 w-full bg-white rounded-lg shadow-lg border border-[--brand-ink]/10 mt-1 max-h-40 overflow-y-auto"></div>
         <div id="reservationBalance" class="text-xs text-[--brand-muted] mt-1.5"></div>
       </div>
@@ -105,7 +105,7 @@ $currencySymbol = setting('currency_symbol', '₦');
       <div id="eventPicker" class="relative hidden">
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Event</label>
         <input id="eventSearch" autocomplete="off" placeholder="Search event name or client…"
-          class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         <div id="eventResults" class="hidden absolute z-10 w-full bg-white rounded-lg shadow-lg border border-[--brand-ink]/10 mt-1 max-h-40 overflow-y-auto"></div>
         <div id="eventBalance" class="text-xs text-[--brand-muted] mt-1.5"></div>
       </div>
@@ -113,11 +113,11 @@ $currencySymbol = setting('currency_symbol', '₦');
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Amount (<?= e($currencySymbol) ?>)</label>
-          <input type="number" name="amount" id="amount" min="0.01" step="0.01" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" name="amount" id="amount" min="0.01" step="0.01" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Payment Method</label>
-          <select name="payment_method" id="payment_method" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select name="payment_method" id="payment_method" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="cash">Cash</option>
             <option value="bank_transfer">Bank Transfer</option>
             <option value="pos">POS</option>
@@ -128,11 +128,11 @@ $currencySymbol = setting('currency_symbol', '₦');
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Reference Number</label>
-        <input name="reference_number" id="reference_number" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm" placeholder="Transaction / POS reference">
+        <input name="reference_number" id="reference_number" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]" placeholder="Transaction / POS reference">
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Notes</label>
-        <textarea name="notes" id="notes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm"></textarea>
+        <textarea name="notes" id="notes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"></textarea>
       </div>
       <div class="flex justify-end gap-3 pt-2">
         <button type="button" onclick="GMT.closeModal('paymentModal')" class="px-5 py-2.5 text-sm rounded-lg border border-[--brand-ink]/10">Cancel</button>
@@ -155,11 +155,11 @@ $currencySymbol = setting('currency_symbol', '₦');
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Amount (<?= e($currencySymbol) ?>)</label>
-          <input type="number" id="editAmount" min="0.01" step="0.01" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <input type="number" id="editAmount" min="0.01" step="0.01" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
         </div>
         <div>
           <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Payment Method</label>
-          <select id="editMethod" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+          <select id="editMethod" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
             <option value="cash">Cash</option><option value="bank_transfer">Bank Transfer</option>
             <option value="pos">POS</option><option value="card">Card</option><option value="other">Other</option>
           </select>
@@ -167,17 +167,17 @@ $currencySymbol = setting('currency_symbol', '₦');
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Date &amp; Time</label>
-        <input type="datetime-local" id="editPaidAt" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+        <input type="datetime-local" id="editPaidAt" required class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Reference Number</label>
-        <input id="editReference" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm">
+        <input id="editReference" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]">
       </div>
       <div>
         <label class="block text-xs font-medium text-[--brand-muted] mb-1.5">Notes</label>
-        <textarea id="editNotes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm"></textarea>
+        <textarea id="editNotes" rows="2" class="w-full rounded-lg border border-[--brand-ink]/10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[--brand-gold]"></textarea>
       </div>
-      <p class="text-xs text-[--brand-muted]">To move a payment to a different reservation or event, delete it and record a new one — the linked booking itself isn't editable here.</p>
+      <p class="text-xs text-[--brand-muted]">To move a payment to a different reservation or event, delete it and record a new one. The linked booking itself isn't editable here.</p>
       <div class="flex justify-end gap-3 pt-2">
         <button type="button" onclick="GMT.closeModal('editPaymentModal')" class="px-5 py-2.5 text-sm rounded-lg border border-[--brand-ink]/10">Cancel</button>
         <button type="submit" class="btn-brand px-5 py-2.5 text-sm font-semibold">Save Changes</button>
@@ -226,11 +226,11 @@ async function loadPayments(page = 1) {
   body.innerHTML = res.data.map(p => `
     <tr class="hover:bg-black/[0.02]">
       <td class="px-5 py-3">${new Date(p.paid_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</td>
-      <td class="px-5 py-3">${p.reservation_code ? 'Reservation ' + p.reservation_code : (p.event_name ? 'Event: ' + p.event_name : '—')}</td>
-      <td class="px-5 py-3">${p.guest_name || '—'}</td>
+      <td class="px-5 py-3">${p.reservation_code ? 'Reservation ' + p.reservation_code : (p.event_name ? 'Event: ' + p.event_name : 'N/A')}</td>
+      <td class="px-5 py-3">${p.guest_name || 'N/A'}</td>
       <td class="px-5 py-3 font-medium">${p.amount_display}</td>
       <td class="px-5 py-3">${p.payment_method.replace('_',' ').replace(/\b\w/g, c => c.toUpperCase())}</td>
-      <td class="px-5 py-3 text-[--brand-muted]">${p.reference_number || '—'}</td>
+      <td class="px-5 py-3 text-[--brand-muted]">${p.reference_number || 'N/A'}</td>
       <td class="px-5 py-3 text-right space-x-1 whitespace-nowrap">
         <button onclick='editPayment(${JSON.stringify(p)})' class="text-xs px-2.5 py-1.5 rounded-lg border border-[--brand-ink]/10 hover:bg-black/5">Edit</button>
         <button onclick="deletePayment(${p.id})" class="text-xs px-2.5 py-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50">Delete</button>
@@ -251,7 +251,7 @@ function editPayment(p) {
   const d = new Date(p.paid_at);
   const pad = n => String(n).padStart(2, '0');
   document.getElementById('editPaidAt').value = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-  document.getElementById('editPaymentContext').textContent = p.reservation_code ? `Reservation ${p.reservation_code} — ${p.guest_name}` : (p.event_name ? `Event: ${p.event_name}` : 'Unlinked payment');
+  document.getElementById('editPaymentContext').textContent = p.reservation_code ? `Reservation ${p.reservation_code}: ${p.guest_name}` : (p.event_name ? `Event: ${p.event_name}` : 'Unlinked payment');
   GMT.openModal('editPaymentModal');
 }
 
@@ -291,8 +291,8 @@ function renderPagination(p) {
 
 function setPaymentType(type) {
   paymentType = type;
-  document.getElementById('typeReservation').className = `px-4 py-2 text-sm font-medium ${type==='reservation' ? 'bg-[--brand-coffee] text-[--brand-cream]' : ''}`;
-  document.getElementById('typeEvent').className = `px-4 py-2 text-sm font-medium ${type==='event' ? 'bg-[--brand-coffee] text-[--brand-cream]' : ''}`;
+  document.getElementById('typeReservation').classList.toggle('is-active', type === 'reservation');
+  document.getElementById('typeEvent').classList.toggle('is-active', type === 'event');
   document.getElementById('reservationPicker').classList.toggle('hidden', type !== 'reservation');
   document.getElementById('eventPicker').classList.toggle('hidden', type !== 'event');
 }
@@ -314,13 +314,13 @@ document.getElementById('reservationSearch').addEventListener('input', GMT.debou
   if (q.length < 2) { box.classList.add('hidden'); return; }
   const res = await GMT.api(`api/reservations.php?search=${encodeURIComponent(q)}`);
   if (!res.success || !res.data.length) { box.innerHTML = `<div class="px-3 py-2 text-sm text-[--brand-muted]">No reservations found</div>`; box.classList.remove('hidden'); return; }
-  box.innerHTML = res.data.map(r => `<div class="px-3 py-2 text-sm hover:bg-black/5 cursor-pointer" onclick='selectReservation(${r.id}, "${r.reservation_code}", "${r.guest_name.replace(/"/g,'&quot;')}", ${r.total_amount})'>${r.reservation_code} — ${r.guest_name} (Room ${r.room_number})</div>`).join('');
+  box.innerHTML = res.data.map(r => `<div class="px-3 py-2 text-sm hover:bg-black/5 cursor-pointer" onclick='selectReservation(${r.id}, "${r.reservation_code}", "${r.guest_name.replace(/"/g,'&quot;')}", ${r.total_amount})'>${r.reservation_code}: ${r.guest_name} (Room ${r.room_number})</div>`).join('');
   box.classList.remove('hidden');
 }, 300));
 
 async function selectReservation(id, code, guestName, total) {
   selectedReservationId = id;
-  document.getElementById('reservationSearch').value = `${code} — ${guestName}`;
+  document.getElementById('reservationSearch').value = `${code}: ${guestName}`;
   document.getElementById('reservationResults').classList.add('hidden');
   const detail = await GMT.api(`api/reservations.php?id=${id}`);
   if (detail.success) {
@@ -338,7 +338,7 @@ document.getElementById('eventSearch').addEventListener('input', GMT.debounce(as
   if (q.length < 2) { box.classList.add('hidden'); return; }
   const res = await GMT.api(`api/events.php?search=${encodeURIComponent(q)}`);
   if (!res.success || !res.data.length) { box.innerHTML = `<div class="px-3 py-2 text-sm text-[--brand-muted]">No events found</div>`; box.classList.remove('hidden'); return; }
-  box.innerHTML = res.data.map(ev => `<div class="px-3 py-2 text-sm hover:bg-black/5 cursor-pointer" onclick='selectEvent(${ev.id}, "${ev.event_name.replace(/"/g,'&quot;')}", ${ev.balance})'>${ev.event_name} — ${ev.client_name}</div>`).join('');
+  box.innerHTML = res.data.map(ev => `<div class="px-3 py-2 text-sm hover:bg-black/5 cursor-pointer" onclick='selectEvent(${ev.id}, "${ev.event_name.replace(/"/g,'&quot;')}", ${ev.balance})'>${ev.event_name}: ${ev.client_name}</div>`).join('');
   box.classList.remove('hidden');
 }, 300));
 
