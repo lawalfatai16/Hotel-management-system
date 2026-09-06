@@ -223,5 +223,5 @@ restaurant, staff, expenses, reporting, notifications, the audit log,
 backup and restore, and settings. Remaining work is mostly around
 production hardening: full end to end testing, finishing the desktop
 build, moving third party libraries to local hosting, and upgrading the
-export and PDF handling to use dedicated libraries where a build
+export and PDF handling to use dedicated libraries where a build 
 pipeline is available to support them.
