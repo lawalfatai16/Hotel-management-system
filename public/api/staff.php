@@ -9,6 +9,17 @@ $db = Database::connect();
 $method = $_SERVER['REQUEST_METHOD'];
 $user = Auth::user();
 
+// Creating or managing a staff login is a separate, more sensitive concern than
+// editing the HR record, since it hands out real system access and a role.
+// Restricted to Super Admin regardless of who else can reach the Staff module.
+if (($_GET['resource'] ?? null) === 'login') {
+    if ($user['role'] !== 'Super Admin') {
+        jsonResponse(['success' => false, 'message' => 'Only a Super Admin can create or manage staff login access.'], 403);
+    }
+    handleStaffLogin($db, $user, $method);
+    exit;
+}
+
 switch ($method) {
 
     case 'GET':
@@ -32,7 +43,10 @@ switch ($method) {
             $total = (int) $countStmt->fetchColumn();
 
             $stmt = $db->prepare(
-                "SELECT s.*, r.name AS role_name FROM staff s LEFT JOIN roles r ON r.id = s.role_id
+                "SELECT s.*, r.name AS role_name, u.id AS user_id, u.username AS login_username, u.status AS login_status
+                 FROM staff s
+                 LEFT JOIN roles r ON r.id = s.role_id
+                 LEFT JOIN users u ON u.staff_id = s.id
                  WHERE {$whereSql} ORDER BY s.full_name LIMIT {$perPage} OFFSET {$offset}"
             );
             $stmt->execute($params);
@@ -102,7 +116,7 @@ switch ($method) {
 
     case 'DELETE':
         safeExecute(function () use ($db, $user) {
-            parse_str(file_get_contents('php://input'), $input);
+            $input = json_decode(file_get_contents('php://input'), true) ?? [];
             $id = (int) ($input['id'] ?? $_GET['id'] ?? 0);
             $csrf = $input['csrf_token'] ?? $_GET['csrf_token'] ?? null;
             if (!Auth::verifyCsrf($csrf)) {
@@ -142,4 +156,119 @@ function validateStaff(array $input): array
     if (empty($input['position'])) $errors[] = 'Position is required.';
     if (empty($input['date_employed'])) $errors[] = 'Date employed is required.';
     return $errors;
+}
+
+function handleStaffLogin(PDO $db, array $user, string $method): void
+{
+    switch ($method) {
+
+        case 'POST':
+            safeExecute(function () use ($db, $user) {
+                $input = json_decode(file_get_contents('php://input'), true) ?? [];
+                if (!Auth::verifyCsrf($input['csrf_token'] ?? null)) {
+                    jsonResponse(['success' => false, 'message' => 'Your session has expired. Please refresh and try again.'], 419);
+                }
+
+                $staffId = (int) ($input['staff_id'] ?? 0);
+                $username = trim($input['username'] ?? '');
+                $email = trim($input['email'] ?? '');
+                $password = (string) ($input['password'] ?? '');
+                $roleId = (int) ($input['role_id'] ?? 0);
+
+                $errors = [];
+                if (!$staffId) $errors[] = 'Staff member is required.';
+                if ($username === '') $errors[] = 'Username is required.';
+                if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'A valid email is required.';
+                if (strlen($password) < 8) $errors[] = 'Password must be at least 8 characters.';
+                if (!$roleId) $errors[] = 'A system role is required.';
+                if ($errors) jsonResponse(['success' => false, 'message' => implode(' ', $errors)], 422);
+
+                $staffStmt = $db->prepare("SELECT full_name FROM staff WHERE id = :id AND deleted_at IS NULL");
+                $staffStmt->execute([':id' => $staffId]);
+                $staff = $staffStmt->fetch();
+                if (!$staff) jsonResponse(['success' => false, 'message' => 'Staff member not found.'], 404);
+
+                $existingLogin = $db->prepare("SELECT id FROM users WHERE staff_id = :id");
+                $existingLogin->execute([':id' => $staffId]);
+                if ($existingLogin->fetch()) jsonResponse(['success' => false, 'message' => 'This staff member already has a login. Use manage login to update it instead.'], 422);
+
+                $roleStmt = $db->prepare("SELECT name FROM roles WHERE id = :id");
+                $roleStmt->execute([':id' => $roleId]);
+                $roleName = $roleStmt->fetchColumn();
+                if (!$roleName) jsonResponse(['success' => false, 'message' => 'Invalid role selected.'], 422);
+
+                $dupeStmt = $db->prepare("SELECT id FROM users WHERE username = :u OR email = :e");
+                $dupeStmt->execute([':u' => $username, ':e' => $email]);
+                if ($dupeStmt->fetch()) jsonResponse(['success' => false, 'message' => 'That username or email is already in use by another account.'], 422);
+
+                $db->beginTransaction();
+                try {
+                    $db->prepare(
+                        "INSERT INTO users (staff_id, username, email, password_hash, role_id, status)
+                         VALUES (:staff_id, :username, :email, :hash, :role_id, 'active')"
+                    )->execute([
+                        ':staff_id' => $staffId, ':username' => $username, ':email' => $email,
+                        ':hash' => password_hash($password, PASSWORD_DEFAULT), ':role_id' => $roleId,
+                    ]);
+                    $db->prepare("UPDATE staff SET role_id = :role_id WHERE id = :id")->execute([':role_id' => $roleId, ':id' => $staffId]);
+                    $db->commit();
+                } catch (Throwable $e) {
+                    $db->rollBack();
+                    throw $e;
+                }
+
+                Auth::logAudit($user['id'], "{$user['username']} created a {$roleName} login for {$staff['full_name']} ({$username})", 'staff');
+                jsonResponse(['success' => true, 'message' => "Login created for {$staff['full_name']}."]);
+            });
+            break;
+
+        case 'PUT':
+            safeExecute(function () use ($db, $user) {
+                $input = json_decode(file_get_contents('php://input'), true) ?? [];
+                if (!Auth::verifyCsrf($input['csrf_token'] ?? null)) {
+                    jsonResponse(['success' => false, 'message' => 'Your session has expired. Please refresh and try again.'], 419);
+                }
+
+                $userId = (int) ($input['user_id'] ?? 0);
+                if (!$userId) jsonResponse(['success' => false, 'message' => 'Missing login id.'], 422);
+
+                $existing = $db->prepare("SELECT u.*, s.full_name FROM users u JOIN staff s ON s.id = u.staff_id WHERE u.id = :id");
+                $existing->execute([':id' => $userId]);
+                $login = $existing->fetch();
+                if (!$login) jsonResponse(['success' => false, 'message' => 'This login is not linked to a staff record and cannot be managed here.'], 404);
+
+                $changes = [];
+
+                if (!empty($input['password'])) {
+                    if (strlen($input['password']) < 8) jsonResponse(['success' => false, 'message' => 'Password must be at least 8 characters.'], 422);
+                    $db->prepare("UPDATE users SET password_hash = :hash, failed_login_attempts = 0, locked_until = NULL WHERE id = :id")
+                       ->execute([':hash' => password_hash($input['password'], PASSWORD_DEFAULT), ':id' => $userId]);
+                    $changes[] = 'reset the password';
+                }
+
+                if (!empty($input['role_id'])) {
+                    $roleStmt = $db->prepare("SELECT name FROM roles WHERE id = :id");
+                    $roleStmt->execute([':id' => $input['role_id']]);
+                    $roleName = $roleStmt->fetchColumn();
+                    if (!$roleName) jsonResponse(['success' => false, 'message' => 'Invalid role selected.'], 422);
+                    $db->prepare("UPDATE users SET role_id = :role_id WHERE id = :id")->execute([':role_id' => $input['role_id'], ':id' => $userId]);
+                    $db->prepare("UPDATE staff SET role_id = :role_id WHERE id = :id")->execute([':role_id' => $input['role_id'], ':id' => $login['staff_id']]);
+                    $changes[] = "changed the role to {$roleName}";
+                }
+
+                if (!empty($input['status']) && in_array($input['status'], ['active', 'suspended'], true)) {
+                    $db->prepare("UPDATE users SET status = :status WHERE id = :id")->execute([':status' => $input['status'], ':id' => $userId]);
+                    $changes[] = "set the login to {$input['status']}";
+                }
+
+                if (!$changes) jsonResponse(['success' => false, 'message' => 'No changes were provided.'], 422);
+
+                Auth::logAudit($user['id'], "{$user['username']} updated login for {$login['full_name']}: " . implode(', ', $changes), 'staff');
+                jsonResponse(['success' => true, 'message' => 'Login updated successfully.']);
+            });
+            break;
+
+        default:
+            jsonResponse(['success' => false, 'message' => 'Method not allowed.'], 405);
+    }
 }

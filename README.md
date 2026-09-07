@@ -117,10 +117,10 @@ to a module later, add the module's key to that role's list in
 
 ## Requirements
 
-- PHP 8.1+ with `pdo_mysql`, `mbstring`, `openssl`
-- MySQL 8+ (or MariaDB 10.6+)
-- A modern Chromium-based runtime for the desktop shell (see
-  `desktop/packaging-instructions.md`)
+PHP 8.1 or later with the pdo_mysql, mbstring and openssl extensions.
+MySQL 8 or later, or MariaDB 10.6 or later. A modern Chromium based
+runtime is needed for the packaged desktop shell, covered in
+`desktop/packaging-instructions.md`.
 
 ## Setup
 
@@ -223,5 +223,5 @@ restaurant, staff, expenses, reporting, notifications, the audit log,
 backup and restore, and settings. Remaining work is mostly around
 production hardening: full end to end testing, finishing the desktop
 build, moving third party libraries to local hosting, and upgrading the
-export and PDF handling to use dedicated libraries where a build 
+export and PDF handling to use dedicated libraries where a build
 pipeline is available to support them.

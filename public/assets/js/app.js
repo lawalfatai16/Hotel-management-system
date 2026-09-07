@@ -156,14 +156,28 @@ const GMT = (() => {
   // way to auto-attach a PDF without the paid/gated WhatsApp Business API. This
   // downloads the real PDF and opens WhatsApp with a message ready; the file
   // just needs to be attached manually in the chat that opens.
+  //
+  // Both actions must fire synchronously inside the click handler. Browsers only
+  // allow a window.open() call that happens directly inside a user gesture; one
+  // fired from inside a setTimeout (even a short one) is treated as an unrelated
+  // popup and silently blocked, which is why only the PDF used to come through.
   function sendWhatsApp(phone, message, pdfUrl) {
     if (!phone) {
       toast('This guest has no phone number on file. Add one before sending via WhatsApp.', 'error');
       return;
     }
-    if (pdfUrl) window.open(pdfUrl, '_blank');
+    if (pdfUrl) {
+      // A plain download link, not window.open, so it never competes with the
+      // WhatsApp tab for the browser's one-popup-per-gesture allowance.
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.setAttribute('download', '');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    setTimeout(() => window.open(waUrl, '_blank'), 300);
+    window.open(waUrl, '_blank');
     toast('PDF downloading. Attach it in the WhatsApp chat that just opened.', 'info');
   }
 

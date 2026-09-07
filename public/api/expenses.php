@@ -122,7 +122,7 @@ switch ($method) {
 
     case 'DELETE':
         safeExecute(function () use ($db, $user) {
-            parse_str(file_get_contents('php://input'), $input);
+            $input = json_decode(file_get_contents('php://input'), true) ?? [];
             $id = (int) ($input['id'] ?? $_GET['id'] ?? 0);
             $csrf = $input['csrf_token'] ?? $_GET['csrf_token'] ?? null;
             if (!Auth::verifyCsrf($csrf)) {
